@@ -1,0 +1,165 @@
+// Prisma schema for PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  DONOR
+  ADMIN
+}
+
+enum BloodGroup {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum NotificationType {
+  REQUEST
+  STATUS
+  SYSTEM
+}
+
+model User {
+  id                 String            @id @default(cuid())
+  name               String?
+  email              String?           @unique
+  emailVerified      DateTime?
+  image              String?
+  passwordHash       String?
+  role               Role              @default(USER)
+  donorProfile       DonorProfile?
+  requests           BloodRequest[]    @relation("Requests")
+  assigned           BloodRequest[]    @relation("Assignments")
+  historyAsDonor     DonationHistory[] @relation("HistoryDonor")
+  historyAsRequester DonationHistory[] @relation("HistoryRequester")
+  notifications      Notification[]
+  accounts           Account[]
+  sessions           Session[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+}
+
+model DonorProfile {
+  id               String             @id @default(cuid())
+  userId           String             @unique
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bloodGroup       BloodGroup
+  location         String
+  availability     AvailabilityStatus @default(AVAILABLE)
+  lastDonationDate DateTime?
+  approved         Boolean            @default(false)
+  blocked          Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model BloodRequest {
+  id          String           @id @default(cuid())
+  requesterId String
+  donorId     String?
+  requester   User             @relation("Requests", fields: [requesterId], references: [id], onDelete: Cascade)
+  donor       User?            @relation("Assignments", fields: [donorId], references: [id], onDelete: SetNull)
+  bloodGroup  BloodGroup
+  units       Int
+  location    String
+  neededAt    DateTime
+  status      RequestStatus    @default(PENDING)
+  note        String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  history     DonationHistory? @relation("RequestHistory")
+}
+
+model DonationHistory {
+  id          String        @id @default(cuid())
+  donorId     String
+  requesterId String
+  requestId   String?       @unique
+  donor       User          @relation("HistoryDonor", fields: [donorId], references: [id], onDelete: Cascade)
+  requester   User          @relation("HistoryRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  request     BloodRequest? @relation("RequestHistory", fields: [requestId], references: [id])
+  donatedAt   DateTime      @default(now())
+  units       Int
+  note        String?
+  createdAt   DateTime      @default(now())
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      NotificationType @default(SYSTEM)
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}

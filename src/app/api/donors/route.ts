@@ -1,0 +1,46 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const bloodGroup = searchParams.get("bloodGroup") || undefined;
+  const location = searchParams.get("location") || undefined;
+  const availability = searchParams.get("availability") || undefined;
+  const keyword = searchParams.get("keyword")?.trim() || undefined;
+
+  const donors = await prisma.donorProfile.findMany({
+    where: {
+      approved: true,
+      blocked: false,
+      ...(bloodGroup ? { bloodGroup } : {}),
+      ...(availability ? { availability } : {}),
+      ...(location
+        ? {
+            location: {
+              contains: location,
+              mode: "insensitive",
+            },
+          }
+        : {}),
+      ...(keyword
+        ? {
+            OR: [
+              { location: { contains: keyword, mode: "insensitive" } },
+              { user: { name: { contains: keyword, mode: "insensitive" } } },
+              { user: { email: { contains: keyword, mode: "insensitive" } } },
+            ],
+          }
+        : {}),
+    },
+    include: {
+      user: {
+        select: { id: true, name: true, email: true, image: true, role: true },
+      },
+    },
+    orderBy: { updatedAt: "desc" },
+  });
+
+  return NextResponse.json(donors);
+}
+
