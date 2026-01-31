@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🩸 Blood Donation Web App
 
-## Getting Started
+A modern, full-stack blood donation management system connecting donors with those in need. Built with Next.js 14, this application features a role-based architecture facilitating seamless interaction between Users, Donors, Agents, and Administrators.
 
-First, run the development server:
+![Project Banner](https://via.placeholder.com/1200x400?text=Blood+Donation+Platform)
+_(Replace with actual project screenshot)_
+
+## ✨ Features
+
+- **🩸 Donor Management**: Users can register as donors, manage their profiles, and update availability status.
+- **🔍 Advanced Search**: Find donors by blood group, location, and availability.
+- **👨‍💼 Agent Dashboard**: Dedicated area-based agents to verify and manage donors in their specific regions.
+- **🛡️ Admin Panel**: Comprehensive control over users, roles, and system-wide settings.
+- **🔐 Role-Based Access**: Secure authentication and authorization for Users, Donors, Agents, and Admins.
+- **📱 Responsive Design**: Fully optimized for mobile, tablet, and desktop devices.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Auth**: [NextAuth.js](https://next-auth.js.org/)
+- **Package Manager**: [pnpm](https://pnpm.io/)
+
+## 📂 Folder Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+blood-donation/
+├── prisma/               # Database schema and migrations
+├── public/               # Static assets
+├── src/
+│   ├── app/              # Next.js App Router pages & API routes
+│   │   ├── (auth)/       # Authentication routes
+│   │   ├── dashboard/    # Protected User/Admin/Agent dashboards
+│   │   └── api/          # Backend API endpoints
+│   ├── components/       # Reusable UI components
+│   ├── lib/              # Utility functions and configurations
+│   ├── scripts/          # Admin/Dev scripts (e.g., seeding, role promo)
+│   └── types/            # TypeScript type definitions
+└── ...config files
+```
+
+## 🚀 Installation & Setup
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/your-username/blood-donation.git
+    cd blood-donation
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    pnpm install
+    ```
+
+3.  **Environment Setup:**
+    Create a `.env` file in the root directory by copying the example:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Update the `.env` file with your credentials:
+
+    ```env
+    # Database (PostgreSQL connection string)
+    DATABASE_URL="postgresql://user:password@localhost:5432/blood_donation?schema=public"
+
+    # NextAuth Configuration
+    NEXTAUTH_URL="http://localhost:3000"
+    NEXTAUTH_SECRET="your-super-secret-key-at-least-32-chars"
+    ```
+
+4.  **Database Setup:**
+    ```bash
+    pnpm prisma generate
+    pnpm prisma db push
+    ```
+
+## 🏃‍♂️ Running Locally
+
+Start the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔑 User Roles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Role      | Description                                                                |
+| :-------- | :------------------------------------------------------------------------- |
+| **USER**  | Standard user. Can request blood and view generic info.                    |
+| **DONOR** | Registered donor. Can be searched and contacted after verification.        |
+| **AGENT** | Area manager. Verifies donors and manages requests in their assigned zone. |
+| **ADMIN** | Superuser. Full access to all system resources and user management.        |
 
-## Learn More
+## 🌐 API Routes
 
-To learn more about Next.js, take a look at the following resources:
+The application exposes several API endpoints for frontend interaction:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `GET /api/donors` - Fetch list of donors (filtered).
+- `POST /api/request` - Create a new blood request.
+- `PATCH /api/agent/verify-donor` - Approve a donor profile (Agent only).
+- `POST /api/auth/register` - User registration.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 Deployment
 
-## Deploy on Vercel
+The easiest way to deploy is using **Vercel**:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1.  Push your code to a GitHub repository.
+2.  Import the project in Vercel.
+3.  Add the **Environment Variables** (`DATABASE_URL`, `NEXTAUTH_SECRET`, etc.) in Vercel settings.
+4.  Click **Deploy**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For detailed deployment steps, refer to [Vercel Deployment Documentation](https://nextjs.org/docs/deployment).
+
+## 🤝 Contribution
+
+Contributions are welcome! Please follow these steps:
+
+1.  Fork the repository.
+2.  Create a new branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+Made with ❤️ by [Your Name]
