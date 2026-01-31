@@ -13,6 +13,7 @@ enum Role {
   USER
   DONOR
   ADMIN
+  AGENT
 }
 
 enum BloodGroup {
@@ -52,6 +53,7 @@ model User {
   emailVerified      DateTime?
   image              String?
   passwordHash       String?
+  phone              String?
   role               Role              @default(USER)
   donorProfile       DonorProfile?
   requests           BloodRequest[]    @relation("Requests")
@@ -61,6 +63,10 @@ model User {
   notifications      Notification[]
   accounts           Account[]
   sessions           Session[]
+  agentArea          String?
+  agentDonors        DonorProfile[]    @relation("AgentDonors")
+  agentId            String?
+  managedDonors      DonorProfile[]    @relation("ManagedByAgent")
   createdAt          DateTime          @default(now())
   updatedAt          DateTime          @updatedAt
 }
@@ -71,12 +77,28 @@ model DonorProfile {
   user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   bloodGroup       BloodGroup
   location         String
+  phone            String?
   availability     AvailabilityStatus @default(AVAILABLE)
   lastDonationDate DateTime?
   approved         Boolean            @default(false)
   blocked          Boolean            @default(false)
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
+  area             String?
+  agentId          String?
+  agent            User?              @relation("AgentDonors", fields: [agentId], references: [id])
+  managedById      String?
+  managedBy        User?              @relation("ManagedByAgent", fields: [managedById], references: [id])
+}
+
+model Report {
+  id            String   @id @default(cuid())
+  type          String   // "DONOR" or "REQUEST"
+  targetId      String
+  reason        String
+  reporterId    String?
+  reporterPhone String?
+  createdAt     DateTime @default(now())
 }
 
 model BloodRequest {

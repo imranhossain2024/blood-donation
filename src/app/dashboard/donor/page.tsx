@@ -34,13 +34,24 @@ export default async function DonorDashboardPage() {
           <DonorProfileForm profile={profile} />
           <div className="card">
             <div className="text-xs uppercase tracking-[0.3em] text-ink/60">
-              Availability status
+              Current Status
             </div>
-            <h3 className="mt-2 text-2xl font-semibold">{profile?.availability ?? "AVAILABLE"}</h3>
+            <h3 className="mt-2 text-2xl font-semibold">
+              {profile?.availability ?? "AVAILABLE"}
+            </h3>
             {profile ? (
-              <AvailabilityToggle availability={(profile.availability ?? "AVAILABLE") as "AVAILABLE" | "UNAVAILABLE"} />
+              <AvailabilityToggle
+                availability={
+                  (profile.availability ?? "AVAILABLE") as
+                    | "AVAILABLE"
+                    | "UNAVAILABLE"
+                }
+                lastDonationDate={profile.lastDonationDate}
+              />
             ) : (
-              <p className="mt-3 text-sm text-ink/70">Complete your donor profile to set availability.</p>
+              <p className="mt-3 text-sm text-ink/70">
+                Complete your donor profile to set availability.
+              </p>
             )}
           </div>
         </div>
@@ -59,29 +70,30 @@ export default async function DonorDashboardPage() {
                     {request.requester.name ?? "Requester"}
                   </div>
                   <h4 className="mt-2 text-xl font-semibold">
-                    {bloodGroupLabels[request.bloodGroup]} - {request.units} units
+                    {bloodGroupLabels[request.bloodGroup]} - {request.units}{" "}
+                    units
                   </h4>
                   <p className="text-sm text-ink/70">{request.location}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {request.status === "PENDING" ? (
                     <>
-                      <form action={respondToRequest.bind(null, request.id, "ACCEPTED")}>
-                        <button type="submit" className="btn btn-primary">
-                          Accept
+                      <form action={async () => { "use server"; await respondToRequest(request.id, "ACCEPTED"); return; }}>
+                        <button type="submit" className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-sm" title="Accept">
+                          ✔️
                         </button>
                       </form>
-                      <form action={respondToRequest.bind(null, request.id, "REJECTED")}>
-                        <button type="submit" className="btn btn-outline">
-                          Reject
+                      <form action={async () => { "use server"; await respondToRequest(request.id, "REJECTED"); return; }}>
+                        <button type="submit" className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm" title="Reject">
+                          🚫
                         </button>
                       </form>
                     </>
                   ) : null}
                   {request.status === "ACCEPTED" ? (
-                    <form action={markRequestCompleted.bind(null, request.id)}>
-                      <button type="submit" className="btn btn-primary">
-                        Mark completed
+                    <form action={async () => { "use server"; await markRequestCompleted(request.id); return; }}>
+                      <button type="submit" className="btn btn-primary py-2 px-4 text-xs">
+                        Mark Completed
                       </button>
                     </form>
                   ) : null}
@@ -97,6 +109,3 @@ export default async function DonorDashboardPage() {
     </DashboardShell>
   );
 }
-
-
-

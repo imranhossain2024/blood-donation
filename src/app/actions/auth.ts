@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-type RegisterState = {
+export type RegisterState = {
   ok: boolean;
   error?: Record<string, string[]> | string;
 };
@@ -17,36 +17,41 @@ export async function registerUser(
   _prevState: RegisterState,
   formData: FormData
 ) {
-  const parsed = registerSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+  try {
+    const parsed = registerSchema.safeParse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    });
 
-  if (!parsed.success) {
-    return { ok: false, error: parsed.error.flatten().fieldErrors };
+    if (!parsed.success) {
+      return { ok: false, error: parsed.error.flatten().fieldErrors };
+    }
+
+    const { name, email, password } = parsed.data;
+
+    const existing = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existing) {
+      return { ok: false, error: { email: ["Email already exists"] } };
+    }
+
+    const passwordHash = await hash(password, 10);
+
+    await prisma.user.create({
+      data: {
+        name,
+        email,
+        passwordHash,
+        role: "USER",
+      },
+    });
+  } catch (err) {
+    console.error("Registration error:", err);
+    return { ok: false, error: "Registration failed. Please try again later." };
   }
-
-  const { name, email, password } = parsed.data;
-
-  const existing = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (existing) {
-    return { ok: false, error: { email: ["Email already exists"] } };
-  }
-
-  const passwordHash = await hash(password, 10);
-
-  await prisma.user.create({
-    data: {
-      name,
-      email,
-      passwordHash,
-      role: "USER",
-    },
-  });
 
   redirect("/login?registered=1");
 }

@@ -6,7 +6,15 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { donorProfileSchema } from "@/lib/validators";
 
-export async function upsertDonorProfile(formData: FormData) {
+export type DonorProfileState = {
+  ok: boolean;
+  error?: Record<string, string[]> | string;
+};
+
+export async function upsertDonorProfile(
+  _prevState: DonorProfileState,
+  formData: FormData
+) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return { ok: false, error: "Unauthorized" };
@@ -15,6 +23,7 @@ export async function upsertDonorProfile(formData: FormData) {
   const parsed = donorProfileSchema.safeParse({
     bloodGroup: formData.get("bloodGroup"),
     location: formData.get("location"),
+    phone: formData.get("phone"),
     availability: formData.get("availability"),
     lastDonationDate: formData.get("lastDonationDate"),
   });
@@ -23,13 +32,14 @@ export async function upsertDonorProfile(formData: FormData) {
     return { ok: false, error: parsed.error.flatten().fieldErrors };
   }
 
-  const { bloodGroup, location, availability, lastDonationDate } = parsed.data;
+  const { bloodGroup, location, phone, availability, lastDonationDate } = parsed.data;
 
   await prisma.donorProfile.upsert({
     where: { userId: session.user.id },
     update: {
       bloodGroup,
       location,
+      phone,
       availability: availability ?? "AVAILABLE",
       lastDonationDate: lastDonationDate ? new Date(lastDonationDate) : null,
     },
@@ -37,6 +47,7 @@ export async function upsertDonorProfile(formData: FormData) {
       userId: session.user.id,
       bloodGroup,
       location,
+      phone,
       availability: availability ?? "AVAILABLE",
       lastDonationDate: lastDonationDate ? new Date(lastDonationDate) : null,
     },

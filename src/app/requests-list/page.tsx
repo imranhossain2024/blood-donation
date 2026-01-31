@@ -1,15 +1,30 @@
+
+
 import { prisma } from "@/lib/prisma";
 import SectionHeading from "@/components/SectionHeading";
 import { bloodGroupLabels } from "@/lib/utils";
+import Link from "next/link";
 
-export default async function BloodRequestsPage() {
-  const requests = await prisma.bloodRequest.findMany({
-    include: {
-      user: { select: { name: true, email: true } },
-      donor: { select: { name: true, bloodGroup: true } },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+const PAGE_SIZE = 10;
+
+export default async function BloodRequestsPage({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
+  const page = searchParams && typeof searchParams.page === "string" ? parseInt(searchParams.page) : 1;
+  const skip = (page - 1) * PAGE_SIZE;
+
+  const [requests, total] = await Promise.all([
+    prisma.bloodRequest.findMany({
+      include: {
+        requester: { select: { name: true, email: true } },
+        donor: { select: { name: true, donorProfile: { select: { bloodGroup: true } } } },
+      },
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: PAGE_SIZE,
+    }),
+    prisma.bloodRequest.count(),
+  ]);
+
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
     <section className="container-pad py-16">
@@ -50,20 +65,42 @@ export default async function BloodRequestsPage() {
               )}
               <div className="flex items-center gap-2 mt-2">
                 <span className="text-xs text-ink/60">Requested by:</span>
-                <span className="font-semibold text-ink">{req.user?.name || "Unknown"}</span>
-                <span className="text-xs text-ink/40">({req.user?.email})</span>
+                <span className="font-semibold text-ink">{req.requester?.name || "Unknown"}</span>
+                <span className="text-xs text-ink/40">({req.requester?.email})</span>
               </div>
               {req.donor && (
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-ink/60">Preferred donor:</span>
                   <span className="font-semibold text-brand-600">{req.donor.name || "Donor"}</span>
-                  <span className="pill bg-brand-100 text-brand-700 text-xs">{bloodGroupLabels[req.donor.bloodGroup]}</span>
+                  {req.donor.donorProfile?.bloodGroup && (
+                    <span className="pill bg-brand-100 text-brand-700 text-xs">{bloodGroupLabels[req.donor.donorProfile.bloodGroup]}</span>
+                  )}
                 </div>
               )}
             </div>
           ))
         )}
       </div>
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-4 mt-10">
+          <Link
+            href={`?page=${page - 1}`}
+            className={`btn btn-outline ${page <= 1 ? "pointer-events-none opacity-50" : ""}`}
+            aria-disabled={page <= 1}
+          >
+            Previous
+          </Link>
+          <span className="text-sm font-semibold">Page {page} of {totalPages}</span>
+          <Link
+            href={`?page=${page + 1}`}
+            className={`btn btn-outline ${page >= totalPages ? "pointer-events-none opacity-50" : ""}`}
+            aria-disabled={page >= totalPages}
+          >
+            Next
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

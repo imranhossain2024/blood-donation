@@ -1,11 +1,35 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
-const links = [
-  { href: "/dashboard", label: "Overview" },
-  { href: "/dashboard/donor", label: "Donor" },
-  { href: "/dashboard/requests", label: "Requests" },
-  { href: "/dashboard/admin", label: "Admin" },
+import { 
+  LayoutDashboard, 
+  Users, 
+  ClipboardList, 
+  ShieldCheck, 
+  UserCircle,
+  Activity
+} from "lucide-react";
+import { useSession } from "next-auth/react";
+
+const baseLinks = [
+  { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/dashboard/requests", label: "Requests", icon: ClipboardList },
+  { href: "/profile", label: "Profile", icon: UserCircle },
+];
+
+const donorLinks = [
+  { href: "/dashboard/donor", label: "Donor Center", icon: Activity },
+];
+
+const agentLinks = [
+  { href: "/dashboard/agent", label: "Agent Panel", icon: Users },
+];
+
+const adminLinks = [
+  { href: "/dashboard/admin", label: "Admin Panel", icon: ShieldCheck },
 ];
 
 type DashboardShellProps = {
@@ -14,27 +38,63 @@ type DashboardShellProps = {
   children: ReactNode;
 };
 
-export default function DashboardShell({ title, description, children }: DashboardShellProps) {
+export default function DashboardShell({
+  title,
+  description,
+  children,
+}: DashboardShellProps) {
+  const pathname = usePathname() ?? "/";
+  const { data: session } = useSession();
+  const role = session?.user?.role;
+
+  const links = [...baseLinks];
+  if (role === "DONOR") links.splice(1, 0, ...donorLinks);
+  if (role === "AGENT") links.splice(1, 0, ...agentLinks);
+  if (role === "ADMIN") {
+    links.push(...adminLinks);
+    // Admins might also want to search donors
+    links.splice(1, 0, { href: "/donors", label: "Find Donors", icon: Users });
+  }
+
   return (
-    <section className="container-pad grid gap-8 py-12 md:grid-cols-[220px_1fr]">
-      <aside className="space-y-3">
-        <div className="rounded-2xl bg-white/80 p-4 shadow-card">
-          <div className="text-xs uppercase tracking-[0.3em] text-ink/60">
-            Dashboard
+    <section className="container-pad grid gap-8 py-12 md:grid-cols-[240px_1fr]">
+      <aside className="space-y-4">
+        <div className="rounded-2xl bg-white/80 p-5 shadow-sm border border-brand-100">
+          <div className="text-[10px] uppercase tracking-[0.3em] text-ink/40 font-bold mb-2">
+            Control Panel
           </div>
-          <h2 className="mt-2 text-2xl font-semibold">{title}</h2>
-          {description ? <p className="mt-2 text-sm text-ink/70">{description}</p> : null}
+          <h2 className="text-xl font-bold text-brand-900 leading-tight">{title}</h2>
+          {description ? (
+            <p className="mt-1 text-xs text-ink/60 line-clamp-2">{description}</p>
+          ) : null}
         </div>
-        <nav className="space-y-2 text-sm font-semibold text-ink/70">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="flex items-center justify-between rounded-2xl border border-brand-100 bg-white/80 px-4 py-3 transition hover:border-brand-300"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav
+          className="space-y-1.5"
+          aria-label="Dashboard navigation"
+        >
+          {links.map((link) => {
+            const isRoot = link.href === "/dashboard";
+            const isActive = isRoot
+              ? pathname === "/dashboard"
+              : pathname === link.href || pathname.startsWith(link.href + "/");
+            const Icon = link.icon;
+            
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                  isActive
+                    ? "border-brand-600 bg-brand-600 text-white shadow-md"
+                    : "border-transparent bg-white/40 text-ink/70 hover:border-brand-100 hover:bg-white hover:text-brand-700 hover:shadow-sm"
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <Icon className={`h-4 w-4 ${isActive ? "text-white" : "text-brand-500"}`} />
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
       </aside>
       <div className="space-y-6">{children}</div>

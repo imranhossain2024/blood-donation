@@ -3,6 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { updateProfile } from "@/app/actions/auth";
 import { bloodGroupLabels } from "@/lib/utils";
+import { BloodGroup } from "@prisma/client";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -41,7 +42,11 @@ export default async function ProfilePage() {
             <p className="mt-2 text-sm text-ink/70">
               Update your display name and account information.
             </p>
-            <form action={updateProfile} className="mt-6 space-y-4">
+            <form action={async (_formData: FormData) => {
+              "use server";
+              await updateProfile(_formData);
+              return;
+            }} className="mt-6 space-y-4">
               <div>
                 <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
                   Full name
@@ -103,7 +108,7 @@ export default async function ProfilePage() {
                     Blood group
                   </p>
                   <p className="mt-2 text-lg font-semibold">
-                    {bloodGroupLabels[user.donorProfile.bloodGroup]}
+                    {bloodGroupLabels[user.donorProfile.bloodGroup as BloodGroup]}
                   </p>
                 </div>
                 <div>

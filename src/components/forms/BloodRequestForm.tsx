@@ -4,6 +4,7 @@ import { createBloodRequest } from "@/app/actions/request";
 import { bloodGroups } from "@/lib/validators";
 import { bloodGroupLabels } from "@/lib/utils";
 import Modal from "@/components/Modal";
+import { BloodGroup } from "@prisma/client";
 
 type BloodRequestFormProps = {
   donors: {
@@ -16,17 +17,22 @@ type BloodRequestFormProps = {
 
 export default function BloodRequestForm({ donors }: BloodRequestFormProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [requestId, setRequestId] = useState("");
   const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(formData: FormData) {
     setError("");
     const result = await createBloodRequest(formData);
-    if (result?.ok) {
+    if (result?.ok && result.id) {
+      setRequestId(result.id);
       setModalOpen(true);
       formRef.current?.reset();
     } else {
-      setError(result?.error || "Something went wrong. Please try again.");
+      const errMsg = typeof result?.error === "string" 
+        ? result.error 
+        : "Please check the form for errors.";
+      setError(errMsg);
     }
   }
 
@@ -47,7 +53,7 @@ export default function BloodRequestForm({ donors }: BloodRequestFormProps) {
             </option>
             {bloodGroups.map((group) => (
               <option key={group} value={group}>
-                {bloodGroupLabels[group]}
+                {bloodGroupLabels[group as BloodGroup]}
               </option>
             ))}
           </select>
@@ -100,7 +106,7 @@ export default function BloodRequestForm({ donors }: BloodRequestFormProps) {
             <option value="">Auto-assign later</option>
             {donors.map((donor) => (
               <option key={donor.id} value={donor.id}>
-                {donor.name ?? "Donor"} - {bloodGroupLabels[donor.bloodGroup]}
+                {donor.name ?? "Donor"} - {bloodGroupLabels[donor.bloodGroup as BloodGroup]}
               </option>
             ))}
           </select>
@@ -124,7 +130,11 @@ export default function BloodRequestForm({ donors }: BloodRequestFormProps) {
         <div className="flex flex-col items-center gap-2 py-2">
           <div className="text-4xl mb-2">✅</div>
           <div className="text-lg font-semibold text-brand-700">Your blood request has been sent successfully.</div>
-          <div className="text-sm text-ink/70">We will notify available donors soon. You can track your request from the dashboard.</div>
+          <div className="rounded-xl bg-brand-50 px-4 py-2 border border-brand-100 mt-2">
+            <span className="text-[10px] uppercase tracking-widest text-ink/40 block text-center mb-1">Request Number</span>
+            <code className="text-brand-800 font-bold">{requestId}</code>
+          </div>
+          <div className="text-sm text-ink/70 mt-2 text-center">We will notify available donors soon. You can track your request from the dashboard.</div>
           <button className="btn btn-primary mt-4" onClick={() => setModalOpen(false)}>
             Done
           </button>

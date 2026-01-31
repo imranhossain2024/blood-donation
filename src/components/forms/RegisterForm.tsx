@@ -1,67 +1,93 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { registerUser } from "@/app/actions/auth";
+import { registerUser, type RegisterState } from "@/app/actions/auth";
+import { useEffect, useState } from "react";
+import Modal from "@/components/Modal";
 
-const initialState = { ok: true } as { ok: boolean; error?: Record<string, string[]> };
+const initialState: RegisterState = { ok: true };
 
 export default function RegisterForm() {
   const [state, formAction] = useFormState(registerUser, initialState);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (state && state.ok && !state.error && !state.ok) {
+      // With the redirect in place, this component usually unmounts.
+      // We keep the modal logic for cases where redirect might be delayed or omitted.
+      setModalOpen(true);
+    }
+  }, [state]);
 
   return (
-    <div className="card max-w-lg">
-      <h1 className="text-3xl font-semibold">Create your account</h1>
-      <p className="mt-2 text-sm text-ink/70">
-        Register to request blood, track status, and become a verified donor.
-      </p>
-      <form action={formAction} className="mt-6 space-y-4">
-        <div>
-          <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-            Full name
-          </label>
-          <input
-            name="name"
-            type="text"
-            required
-            className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
-          />
-          {state?.error?.name ? (
-            <p className="mt-2 text-xs text-brand-700">{state.error.name[0]}</p>
-          ) : null}
+    <>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Registration Successful!">
+        <div className="flex flex-col items-center gap-2 py-2">
+          <div className="text-4xl mb-2">🎉</div>
+          <div className="text-lg font-semibold text-brand-700">Your account has been created.</div>
+          <div className="text-sm text-ink/70">You can now sign in and start using the platform.</div>
+          <button className="btn btn-primary mt-4" onClick={() => { setModalOpen(false); window.location.href = '/login'; }}>
+            Go to Login
+          </button>
         </div>
-        <div>
-          <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-            Email
-          </label>
-          <input
-            name="email"
-            type="email"
-            required
-            className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
-          />
-          {state?.error?.email ? (
-            <p className="mt-2 text-xs text-brand-700">{state.error.email[0]}</p>
+      </Modal>
+      <div className="card max-w-lg">
+        <h1 className="text-3xl font-semibold">Create your account</h1>
+        <p className="mt-2 text-sm text-ink/70">
+          Register to request blood, track status, and become a verified donor.
+        </p>
+        <form action={formAction} className="mt-6 space-y-4">
+          <div>
+            <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
+              Full name
+            </label>
+            <input
+              name="name"
+              type="text"
+              required
+              className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
+            />
+            {state?.error && typeof state.error === "object" && "name" in state.error ? (
+              <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).name?.[0]}</p>
+            ) : null}
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
+              Email
+            </label>
+            <input
+              name="email"
+              type="email"
+              required
+              className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
+            />
+            {state?.error && typeof state.error === "object" && "email" in state.error ? (
+              <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).email?.[0]}</p>
+            ) : null}
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
+              Password
+            </label>
+            <input
+              name="password"
+              type="password"
+              minLength={6}
+              required
+              className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
+            />
+            {state?.error && typeof state.error === "object" && "password" in state.error ? (
+              <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).password?.[0]}</p>
+            ) : null}
+          </div>
+          {state?.error && typeof state.error === "string" ? (
+            <p className="mt-2 text-center text-xs text-brand-700 font-bold">{state.error}</p>
           ) : null}
-        </div>
-        <div>
-          <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-            Password
-          </label>
-          <input
-            name="password"
-            type="password"
-            minLength={6}
-            required
-            className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
-          />
-          {state?.error?.password ? (
-            <p className="mt-2 text-xs text-brand-700">{state.error.password[0]}</p>
-          ) : null}
-        </div>
-        <button type="submit" className="btn btn-primary w-full">
-          Register
-        </button>
-      </form>
-    </div>
+          <button type="submit" className="btn btn-primary w-full">
+            Register
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

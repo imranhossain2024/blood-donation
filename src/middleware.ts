@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const protectedPaths = ["/dashboard", "/request", "/donors", "/profile"];
+const protectedPaths = ["/dashboard", "/request", "/donors", "/profile", "/api/agent"];
 const adminPaths = ["/dashboard/admin"];
 const donorPaths = ["/dashboard/donor"];
+const agentPaths = ["/dashboard/agent", "/api/agent"];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -32,10 +33,24 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
+  if (
+    agentPaths.some((path) => pathname.startsWith(path)) &&
+    role !== "AGENT" &&
+    role !== "ADMIN"
+  ) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/request", "/donors", "/profile/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/request",
+    "/donors",
+    "/profile/:path*",
+    "/api/agent/:path*"
+  ],
 };
 

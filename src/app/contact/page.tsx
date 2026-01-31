@@ -24,7 +24,11 @@ export default function ContactPage() {
             Share your hospital details or partnership idea. We will respond
             within 24 hours.
           </p>
-          <form action={sendContactMessage} className="mt-4 space-y-3">
+          <form action={async (_formData: FormData) => {
+            "use server";
+            await sendContactMessage(_formData);
+            return;
+          }} className="mt-4 space-y-3">
             <input
               type="text"
               name="name"

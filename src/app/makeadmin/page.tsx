@@ -4,7 +4,11 @@ export default function MakeAdminPage() {
   return (
     <section className="container-pad py-16 max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-4">Make Admin Panel</h1>
-      <form action={makeAdminByEmail} className="card p-6 flex flex-col gap-4">
+      <form action={async (_formData: FormData) => {
+        "use server";
+        await makeAdminByEmail(_formData);
+        return;
+      }} className="card p-6 flex flex-col gap-4">
         <label className="text-sm font-semibold">User Email</label>
         <input
           name="email"

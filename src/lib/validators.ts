@@ -30,6 +30,7 @@ export const registerSchema = z.object({
 export const donorProfileSchema = z.object({
   bloodGroup: z.enum(bloodGroups),
   location: z.string().min(2, "Location is required"),
+  phone: z.string().min(10, "Valid phone number is required"),
   availability: z.enum(availabilityStatuses).optional(),
   lastDonationDate: z.string().optional(),
 });

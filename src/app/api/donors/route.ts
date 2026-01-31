@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-
+import { BloodGroup, AvailabilityStatus } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -13,8 +13,8 @@ export async function GET(request: NextRequest) {
     where: {
       approved: true,
       blocked: false,
-      ...(bloodGroup ? { bloodGroup } : {}),
-      ...(availability ? { availability } : {}),
+      ...(bloodGroup ? { bloodGroup: bloodGroup as BloodGroup } : {}),
+      ...(availability ? { availability: availability as AvailabilityStatus } : {}),
       ...(location
         ? {
             location: {
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
               { location: { contains: keyword, mode: "insensitive" } },
               { user: { name: { contains: keyword, mode: "insensitive" } } },
               { user: { email: { contains: keyword, mode: "insensitive" } } },
-            ],
+            ] as any, // Cast to any to bypass complex Prisma union type mismatch
           }
         : {}),
     },

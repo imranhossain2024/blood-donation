@@ -24,7 +24,6 @@ export async function setDonorApproval(userId: string, approved: boolean) {
   revalidatePath("/dashboard/admin");
   revalidatePath("/donors");
 
-  return { ok: true };
 }
 
 export async function setDonorBlocked(userId: string, blocked: boolean) {
@@ -38,7 +37,6 @@ export async function setDonorBlocked(userId: string, blocked: boolean) {
   revalidatePath("/dashboard/admin");
   revalidatePath("/donors");
 
-  return { ok: true };
 }
 
 export async function adminUpdateRequestStatus(requestId: string, status: "PENDING" | "ACCEPTED" | "REJECTED" | "COMPLETED" | "CANCELLED") {
@@ -52,5 +50,4 @@ export async function adminUpdateRequestStatus(requestId: string, status: "PENDI
   revalidatePath("/dashboard/admin");
   revalidatePath("/dashboard/requests");
 
-  return { ok: true };
 }

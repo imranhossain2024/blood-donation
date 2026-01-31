@@ -4,6 +4,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Providers from "@/components/Providers";
 
 const displayFont = Cormorant_Garamond({
   subsets: ["latin"],
@@ -31,11 +32,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="min-h-screen bg-sand text-ink">
-        <div className="min-h-screen bg-hero">
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </div>
+        <Providers>
+          <div className="min-h-screen bg-hero">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );
