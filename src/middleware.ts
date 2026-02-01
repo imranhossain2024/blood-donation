@@ -28,7 +28,8 @@ export async function middleware(req: NextRequest) {
   if (
     donorPaths.some((path) => pathname.startsWith(path)) &&
     role !== "DONOR" &&
-    role !== "ADMIN"
+    role !== "ADMIN" &&
+    role !== "USER"
   ) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }

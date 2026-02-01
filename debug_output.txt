@@ -1,0 +1,19 @@
+
+--- Agent Info ---
+{
+  "id": "cmkxo6ugf0000ge7p5yn2ojv8",
+  "name": "Tareq Hassan",
+  "role": "AGENT",
+  "agentArea": "Dhaka"
+}
+
+--- Checking ALL PENDING Requests (No location filter) ---
+Found 1 total pending requests.
+Sample locations: sakhipur, satkhira
+
+--- Checking Filtered Requests (With agentArea) ---
+Found 0 requests for area: "Dhaka"
+
+--- WHY IS IT ZERO? ---
+Check if agentArea is a subset of any request location.
+- Req Location: "sakhipur, satkhira" | AgentArea: "Dhaka" | Result: NO MATCH

@@ -12,7 +12,7 @@ import {
   UserCircle,
   Activity
 } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { useDashboard } from "@/context/DashboardContext";
 
 const baseLinks = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
@@ -44,11 +44,10 @@ export default function DashboardShell({
   children,
 }: DashboardShellProps) {
   const pathname = usePathname() ?? "/";
-  const { data: session } = useSession();
-  const role = session?.user?.role;
+  const { role } = useDashboard(); // Uses cached role for instant load
 
   const links = [...baseLinks];
-  if (role === "DONOR") links.splice(1, 0, ...donorLinks);
+  if (role === "DONOR" || role === "USER") links.splice(1, 0, ...donorLinks);
   if (role === "AGENT") links.splice(1, 0, ...agentLinks);
   if (role === "ADMIN") {
     links.push(...adminLinks);

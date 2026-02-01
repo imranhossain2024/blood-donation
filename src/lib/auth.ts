@@ -63,6 +63,7 @@ export const authOptions: NextAuthOptions = {
             name: user.name,
             image: user.image,
             role: user.role,
+            agentArea: user.agentArea,
           };
         } catch (err) {
           console.error("Sign-in error:", err);

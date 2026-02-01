@@ -34,35 +34,41 @@ export async function upsertDonorProfile(
 
   const { bloodGroup, location, phone, availability, lastDonationDate } = parsed.data;
 
-  await prisma.donorProfile.upsert({
-    where: { userId: session.user.id },
-    update: {
-      bloodGroup,
-      location,
-      phone,
-      availability: availability ?? "AVAILABLE",
-      lastDonationDate: lastDonationDate ? new Date(lastDonationDate) : null,
-    },
-    create: {
-      userId: session.user.id,
-      bloodGroup,
-      location,
-      phone,
-      availability: availability ?? "AVAILABLE",
-      lastDonationDate: lastDonationDate ? new Date(lastDonationDate) : null,
-    },
-  });
+  try {
+    // We update the user's phone number and its nested donorProfile
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { 
+        phone,
+        role: "DONOR",
+        donorProfile: {
+          upsert: {
+            create: {
+              bloodGroup,
+              location,
+              availability: availability ?? "AVAILABLE",
+              lastDonationDate: lastDonationDate ? new Date(lastDonationDate) : null,
+            },
+            update: {
+              bloodGroup,
+              location,
+              availability: availability ?? "AVAILABLE",
+              lastDonationDate: lastDonationDate ? new Date(lastDonationDate) : null,
+            },
+          },
+        },
+      },
+    });
 
-  await prisma.user.update({
-    where: { id: session.user.id },
-    data: { role: "DONOR" },
-  });
+    revalidatePath("/dashboard");
+    revalidatePath("/dashboard/donor");
+    revalidatePath("/donors");
 
-  revalidatePath("/dashboard");
-  revalidatePath("/dashboard/donor");
-  revalidatePath("/donors");
-
-  return { ok: true };
+    return { ok: true };
+  } catch (error) {
+    console.error("Donor profile update failed:", error);
+    return { ok: false, error: "Failed to save profile. Please ensure your database is synced." };
+  }
 }
 
 export async function setAvailability(status: "AVAILABLE" | "UNAVAILABLE") {

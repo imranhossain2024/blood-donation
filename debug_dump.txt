@@ -1,0 +1,21 @@
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+
+--- Agent Info ---
+{
+  "id": "cmkxo6ugf0000ge7p5yn2ojv8",
+  "name": "Tareq Hassan",
+  "role": "AGENT",
+  "agentArea": "Dhaka"
+}
+
+--- Checking ALL PENDING Requests (No location filter) ---
+Found 1 total pending requests.
+Sample locations: sakhipur, satkhira
+
+--- Checking Filtered Requests (With agentArea) ---
+Found 0 requests for area: "Dhaka"
+
+--- WHY IS IT ZERO? ---
+AgentArea: "Dhaka" | Hex: 4468616b61
+- Req Location: "sakhipur, satkhira" | Hex: 73616b68697075722c207361746b68697261
+  Match? NO

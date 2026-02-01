@@ -77,7 +77,6 @@ model DonorProfile {
   user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   bloodGroup       BloodGroup
   location         String
-  phone            String?
   availability     AvailabilityStatus @default(AVAILABLE)
   lastDonationDate DateTime?
   approved         Boolean            @default(false)
@@ -89,6 +88,11 @@ model DonorProfile {
   agent            User?              @relation("AgentDonors", fields: [agentId], references: [id])
   managedById      String?
   managedBy        User?              @relation("ManagedByAgent", fields: [managedById], references: [id])
+
+  @@index([bloodGroup])
+  @@index([location])
+  @@index([availability])
+  @@index([approved, blocked])
 }
 
 model Report {

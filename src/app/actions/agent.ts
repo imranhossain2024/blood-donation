@@ -24,3 +24,25 @@ export async function agentApproveDonor(donorId: string) {
   revalidatePath("/dashboard/agent");
   revalidatePath(`/dashboard/agent/donor/${donorId}`);
 }
+
+export async function approveRequest(requestId: string) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || session.user.role !== "AGENT") {
+    return { error: "Unauthorized" };
+  }
+
+  try {
+    const request = await prisma.bloodRequest.update({
+      where: { id: requestId },
+      data: { status: "ACCEPTED" },
+    });
+
+    revalidatePath("/dashboard/agent");
+    revalidatePath("/dashboard/agent/requests");
+    return { success: true, request };
+  } catch (error) {
+    console.error("Failed to approve request:", error);
+    return { error: "Failed to approve request" };
+  }
+}
