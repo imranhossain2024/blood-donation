@@ -1,10 +1,10 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { donorProfileSchema } from "@/lib/validators";
+import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export type DonorProfileState = {
   ok: boolean;
@@ -40,7 +40,6 @@ export async function upsertDonorProfile(
       where: { id: session.user.id },
       data: { 
         phone,
-        role: "DONOR",
         donorProfile: {
           upsert: {
             create: {

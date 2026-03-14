@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Droplet, HeartPulse, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 const features = [
   {
@@ -35,7 +35,7 @@ export default function Hero() {
           platform. Register, request, and manage donations with confidence.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/register" className="btn btn-primary">
+          <Link href="/dashboard/donor" className="btn btn-primary">
             Become a donor
           </Link>
           <Link href="/request" className="btn btn-outline">

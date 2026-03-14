@@ -1,10 +1,10 @@
 "use client";
 
+import { reportTarget } from "@/app/actions/report";
 import { bloodGroupLabels } from "@/lib/utils";
-import { BloodGroup, AvailabilityStatus } from "@prisma/client";
+import { AvailabilityStatus, BloodGroup } from "@prisma/client";
 import { useState } from "react";
 import Modal from "./Modal";
-import { reportTarget } from "@/app/actions/report";
 
 type DonorCardProps = {
   donor: {
@@ -106,7 +106,7 @@ export default function DonorCard({ donor }: DonorCardProps) {
         ) : (
           <form action={handleReport} className="space-y-4 py-2">
             <input type="hidden" name="type" value="DONOR" />
-            <input type="hidden" name="targetId" value={donor.id} />
+            <input type="hidden" name="targetId" value={donor.user.id} />
             <div>
               <label className="text-xs uppercase tracking-[0.3em] text-ink/60">Reason for reporting</label>
               <select name="reason" required className="mt-1 w-full rounded-xl border border-brand-100 bg-white px-3 py-2 text-sm">

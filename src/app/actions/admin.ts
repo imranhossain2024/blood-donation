@@ -1,8 +1,8 @@
 "use server";
 
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
 async function assertAdmin() {
@@ -21,6 +21,11 @@ export async function setDonorApproval(userId: string, approved: boolean) {
     data: { approved, blocked: false },
   });
 
+  await prisma.user.update({
+    where: { id: userId },
+    data: { role: approved ? "DONOR" : "USER" },
+  });
+
   revalidatePath("/dashboard/admin");
   revalidatePath("/donors");
 
@@ -33,6 +38,13 @@ export async function setDonorBlocked(userId: string, blocked: boolean) {
     where: { userId },
     data: { blocked, ...(blocked ? { approved: false } : {}) },
   });
+
+  if (blocked) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { role: "USER" },
+    });
+  }
 
   revalidatePath("/dashboard/admin");
   revalidatePath("/donors");

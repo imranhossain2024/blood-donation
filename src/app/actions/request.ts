@@ -1,12 +1,12 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-import { bloodRequestSchema } from "@/lib/validators";
 import { sendEmail } from "@/lib/email";
+import { prisma } from "@/lib/prisma";
 import { bloodGroupLabels } from "@/lib/utils";
+import { bloodRequestSchema } from "@/lib/validators";
+import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export async function createBloodRequest(formData: FormData) {
   const session = await getServerSession(authOptions);
@@ -137,15 +137,17 @@ export async function markRequestCompleted(requestId: string) {
     data: { status: "COMPLETED" },
   });
 
-  await prisma.donationHistory.create({
-    data: {
-      donorId: request.donorId || session.user.id,
-      requesterId: request.requesterId,
-      requestId: request.id,
-      units: request.units,
-      note: request.note || null,
-    },
-  });
+  if (request.donorId) {
+    await prisma.donationHistory.create({
+      data: {
+        donorId: request.donorId,
+        requesterId: request.requesterId,
+        requestId: request.id,
+        units: request.units,
+        note: request.note || null,
+      },
+    });
+  }
 
   revalidatePath("/dashboard");
   revalidatePath("/dashboard/donor");

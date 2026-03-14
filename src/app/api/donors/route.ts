@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { BloodGroup, AvailabilityStatus } from "@prisma/client";
+import { AvailabilityStatus, BloodGroup } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     },
     include: {
       user: {
-        select: { id: true, name: true, email: true, image: true, role: true },
+        select: { id: true, name: true, image: true, role: true }, // Removed email for privacy
       },
     },
     orderBy: { updatedAt: "desc" },

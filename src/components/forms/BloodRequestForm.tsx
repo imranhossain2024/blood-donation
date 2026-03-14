@@ -1,10 +1,10 @@
 "use client";
-import { useState, useRef } from "react";
 import { createBloodRequest } from "@/app/actions/request";
-import { bloodGroups } from "@/lib/validators";
-import { bloodGroupLabels } from "@/lib/utils";
 import Modal from "@/components/Modal";
+import { bloodGroupLabels } from "@/lib/utils";
+import { bloodGroups } from "@/lib/validators";
 import { BloodGroup } from "@prisma/client";
+import { useRef, useState } from "react";
 
 type BloodRequestFormProps = {
   donors: {
@@ -19,11 +19,15 @@ export default function BloodRequestForm({ donors }: BloodRequestFormProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [requestId, setRequestId] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(formData: FormData) {
     setError("");
+    setLoading(true);
     const result = await createBloodRequest(formData);
+    setLoading(false);
+
     if (result?.ok && result.id) {
       setRequestId(result.id);
       setModalOpen(true);
@@ -122,8 +126,8 @@ export default function BloodRequestForm({ donors }: BloodRequestFormProps) {
           />
         </div>
         {error && <div className="text-red-600 text-sm font-semibold">{error}</div>}
-        <button type="submit" className="btn btn-primary">
-          Submit request
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? "Submitting..." : "Submit request"}
         </button>
       </form>
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Request Submitted!">
