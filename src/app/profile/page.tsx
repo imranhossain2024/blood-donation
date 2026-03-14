@@ -1,9 +1,9 @@
-import { getServerSession } from "next-auth";
+import { updateProfile } from "@/app/actions/auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { updateProfile } from "@/app/actions/auth";
 import { bloodGroupLabels } from "@/lib/utils";
 import { BloodGroup } from "@prisma/client";
+import { getServerSession } from "next-auth";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -45,7 +45,6 @@ export default async function ProfilePage() {
             <form action={async (_formData: FormData) => {
               "use server";
               await updateProfile(_formData);
-              return;
             }} className="mt-6 space-y-4">
               <div>
                 <label className="text-xs uppercase tracking-[0.3em] text-ink/60">

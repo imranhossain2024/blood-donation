@@ -7,7 +7,6 @@ export default function MakeAdminPage() {
       <form action={async (_formData: FormData) => {
         "use server";
         await makeAdminByEmail(_formData);
-        return;
       }} className="card p-6 flex flex-col gap-4">
         <label className="text-sm font-semibold">User Email</label>
         <input

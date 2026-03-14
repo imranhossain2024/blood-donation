@@ -1,10 +1,10 @@
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import AgentDonorList from "@/components/AgentDonorList";
 import DashboardShell from "@/components/DashboardShell";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { Suspense } from "react";
-import AgentDonorList from "@/components/AgentDonorList";
 
 export default async function AgentDashboardPage() {
   const session = await getServerSession(authOptions);
@@ -36,7 +36,7 @@ export default async function AgentDashboardPage() {
       </div>
 
       <Suspense fallback={<div className="card text-center py-12 animate-pulse">Loading Donors...</div>}>
-        <AgentDonorList agentArea={session.user.agentArea} agentId={session.user.id} />
+        <AgentDonorList agentArea={session.user.agentArea ?? null} agentId={session.user.id} />
       </Suspense>
     </DashboardShell>
   );

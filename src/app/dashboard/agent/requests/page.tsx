@@ -19,8 +19,9 @@ export default async function AgentRequestsPage() {
   // SERVER-SIDE DEBUG LOGGING
   console.log(`[AgentRequests] Fetching for Agent: ${session.user.email} | Area: "${agentArea}"`);
 
-  let pendingRequests = [];
-  let error = null;
+  let pendingRequests: any[] = [];
+  // let error = null; // Removed if unused or prefix with _
+  let _error = null;
 
   try {
     // Normalize filtering logic
@@ -55,10 +56,10 @@ export default async function AgentRequestsPage() {
     error = "Failed to load requests from database.";
   }
 
-  if (error) {
+  if (_error) {
     return (
       <DashboardShell title="Pending Requests" description="Database Error">
-        <div className="card text-error">{error}</div>
+        <div className="card text-error">{_error}</div>
       </DashboardShell>
     );
   }

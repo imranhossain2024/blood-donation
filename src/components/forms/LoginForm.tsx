@@ -1,10 +1,9 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import React from "react";
 import Modal from "@/components/Modal";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import React, { FormEvent, useState } from "react";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -39,6 +38,7 @@ export default function LoginForm() {
     // Show modal after successful login
     setModalOpen(true);
     setTimeout(() => {
+      router.refresh();
       router.push(callbackUrl);
     }, 1500);
   };

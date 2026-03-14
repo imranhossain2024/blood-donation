@@ -1,11 +1,11 @@
-import { getServerSession } from "next-auth";
+import { markRequestCompleted, respondToRequest } from "@/app/actions/request";
+import DashboardShell from "@/components/DashboardShell";
+import AvailabilityToggle from "@/components/forms/AvailabilityToggle";
+import DonorProfileForm from "@/components/forms/DonorProfileForm";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import DashboardShell from "@/components/DashboardShell";
-import DonorProfileForm from "@/components/forms/DonorProfileForm";
-import AvailabilityToggle from "@/components/forms/AvailabilityToggle";
-import { respondToRequest, markRequestCompleted } from "@/app/actions/request";
 import { bloodGroupLabels } from "@/lib/utils";
+import { getServerSession } from "next-auth";
 
 export default async function DonorDashboardPage() {
   const session = await getServerSession(authOptions);
@@ -78,12 +78,12 @@ export default async function DonorDashboardPage() {
                 <div className="flex flex-wrap gap-2">
                   {request.status === "PENDING" ? (
                     <>
-                      <form action={async () => { "use server"; await respondToRequest(request.id, "ACCEPTED"); return; }}>
+                      <form action={async () => { "use server"; await respondToRequest(request.id, "ACCEPTED"); }}>
                         <button type="submit" className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-sm" title="Accept">
                           ✔️
                         </button>
                       </form>
-                      <form action={async () => { "use server"; await respondToRequest(request.id, "REJECTED"); return; }}>
+                      <form action={async () => { "use server"; await respondToRequest(request.id, "REJECTED"); }}>
                         <button type="submit" className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm" title="Reject">
                           🚫
                         </button>
@@ -91,7 +91,7 @@ export default async function DonorDashboardPage() {
                     </>
                   ) : null}
                   {request.status === "ACCEPTED" ? (
-                    <form action={async () => { "use server"; await markRequestCompleted(request.id); return; }}>
+                    <form action={async () => { "use server"; await markRequestCompleted(request.id); }}>
                       <button type="submit" className="btn btn-primary py-2 px-4 text-xs">
                         Mark Completed
                       </button>

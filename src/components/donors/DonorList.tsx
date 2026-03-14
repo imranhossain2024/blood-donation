@@ -1,13 +1,12 @@
 
 import DonorCard from "@/components/DonorCard";
 import { prisma } from "@/lib/prisma";
-import { BloodGroup, AvailabilityStatus } from "@prisma/client";
+import { AvailabilityStatus, BloodGroup } from "@prisma/client";
 import Link from "next/link";
-import { bloodGroupLabels } from "@/lib/utils";
 
 const PAGE_SIZE = 12;
 
-export default async function DonorList({ searchParams }: { searchParams: any }) {
+export default async function DonorList({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
   const page = typeof searchParams.page === "string" ? parseInt(searchParams.page) : 1;
   const bloodGroup = typeof searchParams.bloodGroup === "string" ? searchParams.bloodGroup : "";
   const location = typeof searchParams.location === "string" ? searchParams.location : "";

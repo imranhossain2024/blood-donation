@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from 'next-auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 // PATCH: Admin assigns an area to an agent
 export async function PATCH(req: NextRequest) {
@@ -16,7 +16,7 @@ export async function PATCH(req: NextRequest) {
       data: { agentArea: area },
     });
     return NextResponse.json({ agent });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to assign area' }, { status: 500 });
   }
 }

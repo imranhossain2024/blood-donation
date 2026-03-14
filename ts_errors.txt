@@ -1,0 +1,4 @@
+src/app/dashboard/agent/page.tsx(39,25): error TS2322: Type 'string | null | undefined' is not assignable to type 'string | null'.
+  Type 'undefined' is not assignable to type 'string | null'.
+src/app/dashboard/agent/requests/page.tsx(22,7): error TS7034: Variable 'pendingRequests' implicitly has type 'any[]' in some locations where its type cannot be determined.
+src/app/dashboard/agent/requests/page.tsx(94,12): error TS7005: Variable 'pendingRequests' implicitly has an 'any[]' type.

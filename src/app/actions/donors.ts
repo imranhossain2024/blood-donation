@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { BloodGroup, AvailabilityStatus } from "@prisma/client";
+import { AvailabilityStatus, BloodGroup } from "@prisma/client";
 
 export async function getDonorsAction(params: {
   bloodGroup?: string;
@@ -15,7 +15,7 @@ export async function getDonorsAction(params: {
     blocked: false,
     ...(bloodGroup ? { bloodGroup: bloodGroup as BloodGroup } : {}),
     ...(availability ? { availability: availability as AvailabilityStatus } : {}),
-    ...(location ? { location: { contains: location, mode: "insensitive" } } as any : {}),
+    ...(location ? { location: { contains: location, mode: "insensitive" as const } } : {}),
   };
 
   const PAGE_SIZE = 12;

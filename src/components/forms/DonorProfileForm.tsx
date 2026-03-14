@@ -1,12 +1,12 @@
 "use client";
 
-import { useFormState } from "react-dom";
 import { upsertDonorProfile, type DonorProfileState } from "@/app/actions/donor";
-import { bloodGroups } from "@/lib/validators";
-import { bloodGroupLabels } from "@/lib/utils";
-import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
+import { bloodGroupLabels } from "@/lib/utils";
+import { bloodGroups } from "@/lib/validators";
 import { BloodGroup } from "@prisma/client";
+import { useEffect, useState } from "react";
+import { useFormState } from "react-dom";
 
 const availabilityOptions = [
   { value: "AVAILABLE", label: "Available" },
@@ -68,7 +68,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
           ))}
         </select>
         {state?.error && typeof state.error === "object" && "bloodGroup" in state.error ? (
-          <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).bloodGroup?.[0]}</p>
+          <p className="mt-2 text-xs text-brand-700">{(state.error as any).bloodGroup?.[0]}</p>
         ) : null}
       </div>
       <div>
@@ -83,7 +83,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
           className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
         />
         {state?.error && typeof state.error === "object" && "location" in state.error ? (
-          <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).location?.[0]}</p>
+          <p className="mt-2 text-xs text-brand-700">{(state.error as any).location?.[0]}</p>
         ) : null}
       </div>
       <div>
@@ -99,7 +99,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
           className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
         />
         {state?.error && typeof state.error === "object" && "phone" in state.error ? (
-          <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).phone?.[0]}</p>
+          <p className="mt-2 text-xs text-brand-700">{(state.error as any).phone?.[0]}</p>
         ) : null}
       </div>
       <div>
@@ -118,7 +118,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
           ))}
         </select>
         {state?.error && typeof state.error === "object" && "availability" in state.error ? (
-          <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).availability?.[0]}</p>
+          <p className="mt-2 text-xs text-brand-700">{(state.error as any).availability?.[0]}</p>
         ) : null}
       </div>
       <div>
@@ -136,7 +136,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
           className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
         />
         {state?.error && typeof state.error === "object" && "lastDonationDate" in state.error ? (
-          <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).lastDonationDate?.[0]}</p>
+          <p className="mt-2 text-xs text-brand-700">{(state.error as any).lastDonationDate?.[0]}</p>
         ) : null}
       </div>
       {state?.error && typeof state.error === "string" ? (

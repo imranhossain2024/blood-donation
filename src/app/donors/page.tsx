@@ -1,15 +1,15 @@
 
-import SectionHeading from "@/components/SectionHeading";
-import { Suspense } from "react";
-import DonorStats from "@/components/donors/DonorStats";
 import DonorList from "@/components/donors/DonorList";
+import DonorStats from "@/components/donors/DonorStats";
 import SearchFilters from "@/components/donors/SearchFilters";
 import { SkeletonGrid, SkeletonStats } from "@/components/donors/Skeletons";
+import SectionHeading from "@/components/SectionHeading";
+import { Suspense } from "react";
 
 export default function DonorsPage({
   searchParams,
 }: {
-  searchParams: any;
+  searchParams: Record<string, string | string[] | undefined>;
 }) {
   return (
     <section className="container-pad py-16">

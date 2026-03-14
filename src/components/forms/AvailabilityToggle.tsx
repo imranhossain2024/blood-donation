@@ -25,7 +25,6 @@ export default function AvailabilityToggle({ availability, lastDonationDate }: A
         <form action={async (_formData: FormData) => {
           "use server";
           await setAvailability("AVAILABLE");
-          return;
         }}>
           <button
             type="submit"
@@ -39,7 +38,6 @@ export default function AvailabilityToggle({ availability, lastDonationDate }: A
         <form action={async (_formData: FormData) => {
           "use server";
           await setAvailability("UNAVAILABLE");
-          return;
         }}>
           <button
             type="submit"

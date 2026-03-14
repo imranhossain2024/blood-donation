@@ -59,7 +59,7 @@ export default function AgentRequestCard({ request }: RequestCardProps) {
            <p className="text-sm"><span className="font-semibold">Phone:</span> {request.requester.phone}</p>
         )}
         {request.note && (
-          <p className="text-sm bg-brand-50 p-2 rounded-lg italic text-ink/70">"{request.note}"</p>
+          <p className="text-sm bg-brand-50 p-2 rounded-lg italic text-ink/70">&quot;{request.note}&quot;</p>
         )}
       </div>
 

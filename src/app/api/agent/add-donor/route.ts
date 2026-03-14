@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from 'next-auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 // POST: Agent adds a donor to their area
 export async function POST(req: NextRequest) {
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       },
     });
     return NextResponse.json({ donor });
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to add donor' }, { status: 500 });
+  } catch (_error) {
+    return NextResponse.json({ error: "Failed to add donor" }, { status: 500 });
   }
 }

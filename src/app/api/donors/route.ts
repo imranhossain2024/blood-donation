@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
               { location: { contains: keyword, mode: "insensitive" } },
               { user: { name: { contains: keyword, mode: "insensitive" } } },
               { user: { email: { contains: keyword, mode: "insensitive" } } },
-            ] as any, // Cast to any to bypass complex Prisma union type mismatch
+            ] as any,
           }
         : {}),
     },

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { RequestStatus } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const requests = await prisma.bloodRequest.findMany({
     where: status && Object.values(RequestStatus).includes(status as RequestStatus) 
       ? { status: status as RequestStatus } 
-      : undefined,
+      : {},
     include: {
       requester: { select: { id: true, name: true, email: true } },
       donor: { select: { id: true, name: true, email: true } },
