@@ -1,5 +1,6 @@
 
 import DonorList from "@/components/donors/DonorList";
+export const dynamic = 'force-dynamic';
 import DonorStats from "@/components/donors/DonorStats";
 import SearchFilters from "@/components/donors/SearchFilters";
 import { SkeletonGrid, SkeletonStats } from "@/components/donors/Skeletons";

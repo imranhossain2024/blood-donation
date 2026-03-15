@@ -4,6 +4,7 @@ import AvailabilityToggle from "@/components/forms/AvailabilityToggle";
 import DonorProfileForm from "@/components/forms/DonorProfileForm";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+export const dynamic = 'force-dynamic';
 import { bloodGroupLabels } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { Check, X, MapPin, Droplets, Info } from "lucide-react";

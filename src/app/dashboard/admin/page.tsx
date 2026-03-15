@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+export const dynamic = 'force-dynamic';
 import DashboardShell from "@/components/DashboardShell";
 import { setDonorApproval, setDonorBlocked, adminUpdateRequestStatus } from "@/app/actions/admin";
 import { dismissReport } from "@/app/actions/report";

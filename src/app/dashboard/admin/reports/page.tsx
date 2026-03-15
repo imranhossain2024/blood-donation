@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+export const dynamic = 'force-dynamic';
 import DashboardShell from "@/components/DashboardShell";
 import { dismissReport } from "@/app/actions/report";
 import { setDonorBlocked } from "@/app/actions/admin";

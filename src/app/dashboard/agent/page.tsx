@@ -1,5 +1,6 @@
 
 import AgentDonorList from "@/components/AgentDonorList";
+export const dynamic = 'force-dynamic';
 import DashboardShell from "@/components/DashboardShell";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";

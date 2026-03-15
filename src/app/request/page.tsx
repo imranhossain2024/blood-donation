@@ -1,6 +1,7 @@
 import BloodRequestForm from "@/components/forms/BloodRequestForm";
 import SectionHeading from "@/components/SectionHeading";
 import { prisma } from "@/lib/prisma";
+export const dynamic = 'force-dynamic';
 
 export default async function RequestPage() {
   const donors = await prisma.donorProfile.findMany({

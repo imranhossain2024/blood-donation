@@ -1,6 +1,7 @@
 
 
 import { prisma } from "@/lib/prisma";
+export const dynamic = 'force-dynamic';
 import SectionHeading from "@/components/SectionHeading";
 import { bloodGroupLabels } from "@/lib/utils";
 import Link from "next/link";

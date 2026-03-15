@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+export const dynamic = 'force-dynamic';
 import DashboardShell from "@/components/DashboardShell";
 import { setDonorApproval, setDonorBlocked } from "@/app/actions/admin";
 import { bloodGroupLabels } from "@/lib/utils";
