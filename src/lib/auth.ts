@@ -30,10 +30,11 @@ const credentialsSchema = z.object({
 
 // ২. এনভায়রনমেন্ট ভেরিয়েবল থেকে আইডি এবং সিক্রেট নিয়ে গুগল কনফিগার করা
 const googleProvider =
-  process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+  (process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID) && 
+  (process.env.AUTH_GOOGLE_SECRET || process.env.GOOGLE_CLIENT_SECRET)
     ? GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        clientId: (process.env.AUTH_GOOGLE_ID || process.env.GOOGLE_CLIENT_ID)!,
+        clientSecret: (process.env.AUTH_GOOGLE_SECRET || process.env.GOOGLE_CLIENT_SECRET)!,
         allowDangerousEmailAccountLinking: true,
       })
     : null;
@@ -118,5 +119,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
 };
