@@ -3,10 +3,8 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import DashboardShell from "@/components/DashboardShell";
 import DonorCard from "@/components/DonorCard";
-import SectionHeading from "@/components/SectionHeading";
 import { notFound } from "next/navigation";
 import { bloodGroupLabels } from "@/lib/utils";
-import { BloodGroup } from "@prisma/client";
 
 export default async function MatchedDonorsPage({
   params,

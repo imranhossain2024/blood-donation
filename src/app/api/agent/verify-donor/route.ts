@@ -16,7 +16,8 @@ export async function PATCH(req: NextRequest) {
       data: { approved: true },
     });
     return NextResponse.json({ donor });
-  } catch (_error) {
+  } catch (error) {
+    console.error("Failed to verify donor:", error);
     return NextResponse.json({ error: 'Failed to verify donor' }, { status: 500 });
   }
 }

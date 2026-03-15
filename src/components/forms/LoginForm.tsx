@@ -2,11 +2,10 @@
 
 import Modal from "@/components/Modal";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 
 export default function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = "/dashboard";
   const [error, setError] = useState<string | null>(null);

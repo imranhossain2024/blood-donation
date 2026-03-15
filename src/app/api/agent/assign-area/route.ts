@@ -16,7 +16,8 @@ export async function PATCH(req: NextRequest) {
       data: { agentArea: area },
     });
     return NextResponse.json({ agent });
-  } catch (_error) {
+  } catch (error) {
+    console.error("Failed to assign area:", error);
     return NextResponse.json({ error: 'Failed to assign area' }, { status: 500 });
   }
 }

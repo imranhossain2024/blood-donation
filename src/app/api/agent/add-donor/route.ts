@@ -21,7 +21,8 @@ export async function POST(req: NextRequest) {
       },
     });
     return NextResponse.json({ donor });
-  } catch (_error) {
+  } catch (error) {
+    console.error("Failed to add donor:", error);
     return NextResponse.json({ error: "Failed to add donor" }, { status: 500 });
   }
 }

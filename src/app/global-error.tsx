@@ -18,7 +18,7 @@ export default function GlobalError({
       <body className="flex min-h-screen flex-col items-center justify-center bg-sand p-6 text-center text-ink">
         <h2 className="text-3xl font-bold text-brand-600 mb-4">Something went wrong!</h2>
         <p className="text-ink/70 mb-8 max-w-md">
-          A critical error occurred. We've been notified and are working on it.
+          A critical error occurred. We&apos;ve been notified and are working on it.
         </p>
         <button
           onClick={() => reset()}

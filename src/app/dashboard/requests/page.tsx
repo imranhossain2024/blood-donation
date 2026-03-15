@@ -55,7 +55,7 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
                         >
                           Find Matches
                         </Link>
-                        <form action={async (_formData: FormData) => {
+                        <form action={async () => {
                           "use server";
                           await cancelRequest(request.id);
                           return;

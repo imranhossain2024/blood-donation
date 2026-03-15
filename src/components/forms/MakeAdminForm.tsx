@@ -36,7 +36,7 @@ export default function MakeAdminForm() {
               <ShieldCheck className="w-8 h-8" />
             </div>
             <h1 className="text-2xl font-black text-ink">Elevate to Admin</h1>
-            <p className="text-sm text-ink/60 mt-2">Provide a user's email to grant them full administrative privileges.</p>
+            <p className="text-sm text-ink/60 mt-2">Provide a user&apos;s email to grant them full administrative privileges.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">

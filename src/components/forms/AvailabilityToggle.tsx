@@ -19,14 +19,14 @@ export default function AvailabilityToggle({ availability, lastDonationDate }: A
           <div>
             <p className="font-bold text-sm">Not eligible yet</p>
             <p className="mt-0.5 opacity-80 leading-relaxed">
-              It's been {diffDays} days since your last donation. You'll be ready again in <span className="font-bold">{90 - diffDays} days</span>.
+              It&apos;s been {diffDays} days since your last donation. You&apos;ll be ready again in <span className="font-bold">{90 - diffDays} days</span>.
             </p>
           </div>
         </div>
       )}
       
       <div className="flex p-1 bg-brand-50/50 rounded-2xl border border-brand-100 w-fit">
-        <form action={async (_formData: FormData) => {
+        <form action={async () => {
           "use server";
           await setAvailability("AVAILABLE");
         }}>
@@ -44,7 +44,7 @@ export default function AvailabilityToggle({ availability, lastDonationDate }: A
           </button>
         </form>
 
-        <form action={async (_formData: FormData) => {
+        <form action={async () => {
           "use server";
           await setAvailability("UNAVAILABLE");
         }}>

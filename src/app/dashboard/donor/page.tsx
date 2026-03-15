@@ -149,7 +149,7 @@ export default async function DonorDashboardPage() {
               <div className="card text-center py-12 border-dashed border-2 flex flex-col items-center justify-center text-ink/40 fade-up fade-up-delay-2">
                 <Droplets className="h-12 w-12 mb-4 opacity-20" />
                 <p className="font-bold">No incoming requests</p>
-                <p className="text-xs mt-1">We'll notify you when someone needs your help.</p>
+                <p className="text-xs mt-1">We&apos;ll notify you when someone needs your help.</p>
               </div>
             )}
           </div>

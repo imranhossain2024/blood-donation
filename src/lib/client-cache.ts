@@ -40,13 +40,14 @@ export class ClientCache {
       }
       
       const now = Date.now();
-      // Even if expired, we might want to return it as "stale" data
-      // For this strict getter, we return null if absolutely expired > 24h?
-      // Actually, for SWR, we usually want the data regardless of TTL, 
-      // but we use TTL to decide whether to revalidate in background.
-      // So this simple getter will return data, and let the hook decide staleness.
+      if (now - entry.timestamp > ttl) {
+        // Data is stale, but we still return it for SWR-like behavior
+        // or we could return null. For this getter, let's keep it simple.
+        return entry.data;
+      }
       return entry.data;
-    } catch (e) {
+    } catch (error) {
+      console.error("Cache parse error", error);
       return null;
     }
   }
