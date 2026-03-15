@@ -53,7 +53,7 @@ export default async function AgentRequestsPage() {
     console.log(`[AgentRequests] Found ${pendingRequests.length} results.`);
   } catch (e) {
     console.error("[AgentRequests] Database error:", e);
-    error = "Failed to load requests from database.";
+    _error = "Failed to load requests from database.";
   }
 
   if (_error) {

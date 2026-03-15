@@ -1,4 +1,5 @@
 import { setAvailability } from "@/app/actions/donor";
+import { Check, XCircle, AlertCircle } from "lucide-react";
 
 type AvailabilityToggleProps = {
   availability: "AVAILABLE" | "UNAVAILABLE";
@@ -13,15 +14,18 @@ export default function AvailabilityToggle({ availability, lastDonationDate }: A
   return (
     <div className="space-y-4">
       {!isEligible && (
-        <div className="rounded-xl bg-amber-50 p-3 text-xs font-medium text-amber-800 border border-amber-100 flex items-start gap-2">
-          <span className="text-base leading-none">⚠️</span>
+        <div className="rounded-2xl bg-amber-50/50 p-4 text-xs font-medium text-amber-900 border border-amber-100/50 flex items-start gap-3 backdrop-blur-sm animate-in fade-in slide-in-from-top-2">
+          <AlertCircle className="h-5 w-5 text-amber-600 shrink-0" />
           <div>
-            <p className="font-bold">Not eligible to donate yet</p>
-            <p className="mt-0.5 opacity-80">You donated {diffDays} days ago. Please wait {90 - diffDays} more days to become available again.</p>
+            <p className="font-bold text-sm">Not eligible yet</p>
+            <p className="mt-0.5 opacity-80 leading-relaxed">
+              It's been {diffDays} days since your last donation. You'll be ready again in <span className="font-bold">{90 - diffDays} days</span>.
+            </p>
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-3">
+      
+      <div className="flex p-1 bg-brand-50/50 rounded-2xl border border-brand-100 w-fit">
         <form action={async (_formData: FormData) => {
           "use server";
           await setAvailability("AVAILABLE");
@@ -29,21 +33,31 @@ export default function AvailabilityToggle({ availability, lastDonationDate }: A
           <button
             type="submit"
             disabled={!isEligible}
-            className={`btn ${availability === "AVAILABLE" ? "btn-primary" : "btn-outline"} ${!isEligible ? "opacity-50 cursor-not-allowed" : ""}`}
-            title={!isEligible ? "You must wait 90 days between donations" : ""}
+            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 ${
+              availability === "AVAILABLE" 
+                ? "bg-white text-brand-700 shadow-sm border border-brand-100" 
+                : "text-ink/40 hover:text-brand-600"
+            } ${!isEligible ? "opacity-40 cursor-not-allowed grayscale" : ""}`}
           >
+            <Check className={`h-4 w-4 ${availability === "AVAILABLE" ? "scale-110" : "scale-90"}`} />
             Available
           </button>
         </form>
+
         <form action={async (_formData: FormData) => {
           "use server";
           await setAvailability("UNAVAILABLE");
         }}>
           <button
             type="submit"
-            className={`btn ${availability === "UNAVAILABLE" ? "btn-primary" : "btn-outline"}`}
+            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 ${
+              availability === "UNAVAILABLE" 
+                ? "bg-white text-brand-700 shadow-sm border border-brand-100" 
+                : "text-ink/40 hover:text-brand-600"
+            }`}
           >
-            Not available
+            <XCircle className={`h-4 w-4 ${availability === "UNAVAILABLE" ? "scale-110" : "scale-90"}`} />
+            Unavailable
           </button>
         </form>
       </div>

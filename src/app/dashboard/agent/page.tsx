@@ -36,7 +36,7 @@ export default async function AgentDashboardPage() {
       </div>
 
       <Suspense fallback={<div className="card text-center py-12 animate-pulse">Loading Donors...</div>}>
-        <AgentDonorList agentArea={session.user.agentArea ?? null} agentId={session.user.id} />
+        <AgentDonorList agentArea={session.user.agentArea ?? null} agentId={session.user.id as string} />
       </Suspense>
     </DashboardShell>
   );

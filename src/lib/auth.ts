@@ -1,4 +1,4 @@
-import type { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -7,16 +7,34 @@ import { prisma } from "@/lib/prisma";
 import { Role } from "@prisma/client";
 import { z } from "zod";
 
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      role: Role;
+      agentArea?: string | null;
+    } & DefaultSession["user"];
+  }
+
+  interface User {
+    role: Role;
+    agentArea?: string | null;
+  }
+}
+
 const credentialsSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
 
+
+// ২. এনভায়রনমেন্ট ভেরিয়েবল থেকে আইডি এবং সিক্রেট নিয়ে গুগল কনফিগার করা
 const googleProvider =
   process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
     ? GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        allowDangerousEmailAccountLinking: true,
       })
     : null;
 
@@ -71,6 +89,7 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
+    // ৩. প্রোভাইডার লিস্টে গুগল যোগ করা
     ...(googleProvider ? [googleProvider] : []),
   ],
   callbacks: {

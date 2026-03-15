@@ -5,6 +5,7 @@ import DashboardShell from "@/components/DashboardShell";
 import { setDonorApproval, setDonorBlocked, adminUpdateRequestStatus } from "@/app/actions/admin";
 import { dismissReport } from "@/app/actions/report";
 import { bloodGroupLabels } from "@/lib/utils";
+import Link from "next/link";
 
 const statuses = ["PENDING", "ACCEPTED", "REJECTED", "COMPLETED", "CANCELLED"] as const;
 
@@ -90,10 +91,15 @@ export default async function AdminDashboardPage() {
         </div>
         
         <div className="card border-t-4 border-t-orange-500">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <span className="p-1.5 bg-orange-50 rounded-lg text-orange-600">📝</span>
-            Pending Approvals
-          </h2>
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <span className="p-1.5 bg-orange-50 rounded-lg text-orange-600">📝</span>
+              Pending Approvals
+            </h2>
+            <Link href="/dashboard/admin/donors" className="text-xs font-bold text-brand-600 hover:underline">
+              View All Donors →
+            </Link>
+          </div>
           <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
             {pendingDonors.length ? (
               pendingDonors.map((donor) => (
@@ -138,6 +144,9 @@ export default async function AdminDashboardPage() {
             <span className="p-1.5 bg-blue-50 rounded-lg text-blue-600">🔄</span>
             Recent Activity
           </h2>
+          <Link href="/dashboard/admin/requests" className="text-xs font-bold text-brand-600 hover:underline">
+            View All Requests →
+          </Link>
         </div>
         <div className="grid gap-4">
           {recentRequests.length ? (
@@ -201,10 +210,15 @@ export default async function AdminDashboardPage() {
       </div>
 
       <div className="mb-10">
-        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-          <span className="p-1.5 bg-red-50 rounded-lg text-red-600">🚩</span>
-          User Reports
-        </h2>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="p-1.5 bg-red-50 rounded-lg text-red-600">🚩</span>
+            User Reports
+          </h2>
+          <Link href="/dashboard/admin/reports" className="text-xs font-bold text-brand-600 hover:underline">
+            View All Reports →
+          </Link>
+        </div>
         <div className="grid gap-4">
           {reports.length ? (
             reports.map((report: any) => (
@@ -220,11 +234,11 @@ export default async function AdminDashboardPage() {
                   </div>
                   <div className="flex gap-2">
                     <form action={async () => { "use server"; await dismissReport(report.id); }}>
-                      <button type="submit" className="btn btn-outline py-2 px-4 text-xs">Dismiss</button>
+                      <button type="submit" className="btn btn-outline py-2.5 px-6 text-xs font-bold">Dismiss</button>
                     </form>
                     {report.type === "DONOR" && (
                       <form action={async () => { "use server"; await setDonorBlocked(report.targetId, true); }}>
-                        <button type="submit" className="btn btn-primary bg-red-600 border-red-600 hover:bg-red-700 py-2 px-4 text-xs">Ban Donor</button>
+                        <button type="submit" className="btn btn-primary bg-red-600 border-red-600 hover:bg-red-700 py-2.5 px-6 text-xs font-bold shadow-lg shadow-red-600/20">Ban Donor</button>
                       </form>
                     )}
                   </div>

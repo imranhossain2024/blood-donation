@@ -39,6 +39,8 @@ export async function setDonorBlocked(userId: string, blocked: boolean) {
     data: { blocked, ...(blocked ? { approved: false } : {}) },
   });
 
+  // If unblocking, we don't necessarily want to auto-approve,
+  // but if blocking, we definitely want to demote to USER.
   if (blocked) {
     await prisma.user.update({
       where: { id: userId },
@@ -47,8 +49,20 @@ export async function setDonorBlocked(userId: string, blocked: boolean) {
   }
 
   revalidatePath("/dashboard/admin");
+  revalidatePath("/dashboard/admin/donors");
   revalidatePath("/donors");
+}
 
+export async function deleteBloodRequest(requestId: string) {
+  await assertAdmin();
+
+  await prisma.bloodRequest.delete({
+    where: { id: requestId },
+  });
+
+  revalidatePath("/dashboard/admin");
+  revalidatePath("/dashboard/admin/requests");
+  revalidatePath("/dashboard/requests");
 }
 
 export async function adminUpdateRequestStatus(requestId: string, status: "PENDING" | "ACCEPTED" | "REJECTED" | "COMPLETED" | "CANCELLED") {
@@ -60,6 +74,6 @@ export async function adminUpdateRequestStatus(requestId: string, status: "PENDI
   });
 
   revalidatePath("/dashboard/admin");
+  revalidatePath("/dashboard/admin/requests");
   revalidatePath("/dashboard/requests");
-
 }

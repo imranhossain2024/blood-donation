@@ -4,20 +4,20 @@ import { registerUser, type RegisterState } from "@/app/actions/auth";
 import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
+import { useRouter } from "next/navigation";
 
 const initialState: RegisterState = { ok: true };
 
 export default function RegisterForm() {
   const [state, formAction] = useFormState(registerUser, initialState);
   const [modalOpen, setModalOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    if (state && state.ok && !state.error && !state.ok) {
-      // With the redirect in place, this component usually unmounts.
-      // We keep the modal logic for cases where redirect might be delayed or omitted.
-      setModalOpen(true);
+    if (state && state.ok && !state.error && state.ok === true && state !== initialState) {
+      router.push("/login?registered=1");
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <>

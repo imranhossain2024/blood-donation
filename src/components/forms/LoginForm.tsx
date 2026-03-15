@@ -8,7 +8,7 @@ import React, { FormEvent, useState } from "react";
 export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = "/";
+  const callbackUrl = "/dashboard";
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -35,23 +35,32 @@ export default function LoginForm() {
       return;
     }
 
-    // Show modal after successful login
-    setModalOpen(true);
-    setTimeout(() => {
-      router.refresh();
-      router.push(callbackUrl);
-    }, 1500);
+    // Navigate immediately after successful login
+    // Use window.location.href to ensure server-side Navbar picks up session
+    window.location.href = callbackUrl;
   };
 
   const [modalOpen, setModalOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // Check for modal trigger or registration success on mount
+  // Check for modal trigger, registration success, or auth errors on mount
   React.useEffect(() => {
-    if (searchParams.get("registered") === "1") {
+    const registered = searchParams.get("registered") === "1";
+    if (registered) {
       setSuccessMessage("Registration successful! You can now log in.");
     }
     
+    const urlError = searchParams.get("error");
+    if (urlError) {
+      if (urlError === "OAuthAccountNotLinked") {
+        setError("Another account with the same email already exists. Try logging in with your password first.");
+      } else if (urlError === "Callback") {
+        setError("Sign in failed. The callback was interrupted.");
+      } else {
+        setError("An error occurred during sign in. Please try again.");
+      }
+    }
+
     if (typeof window !== "undefined" && localStorage.getItem("showDonorLoginModal") === "1") {
       setModalOpen(true);
       localStorage.removeItem("showDonorLoginModal");
@@ -111,6 +120,7 @@ export default function LoginForm() {
           </button>
         </form>
 
+        {/* এর মাধ্যমে আমরা "Or" ডিভাইডার এবং গুগলে লগইন করার বাটনটি যোগ করছি */}
         <div className="my-5 flex items-center gap-3 text-xs text-ink/60">
           <span className="h-px flex-1 bg-brand-100" />
           Or
