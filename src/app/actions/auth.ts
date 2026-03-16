@@ -118,7 +118,7 @@ export async function requestPasswordReset(formData: FormData) {
 /**
  * Resets the password using a valid token.
  */
-export async function resetPassword(values: any) {
+export async function resetPassword(values: unknown) {
   const validated = resetPasswordSchema.safeParse(values);
   if (!validated.success) {
     return { error: "Invalid input data" };
