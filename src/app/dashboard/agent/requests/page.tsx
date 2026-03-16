@@ -24,7 +24,7 @@ export default async function AgentRequestsPage() {
     requester: { name: string | null; email: string | null; phone: string | null }
   })[] = [];
   // let error = null; // Removed if unused or prefix with _
-  let _error = null;
+  let error = null;
 
   try {
     // Normalize filtering logic
@@ -56,13 +56,13 @@ export default async function AgentRequestsPage() {
     console.log(`[AgentRequests] Found ${pendingRequests.length} results.`);
   } catch (e) {
     console.error("[AgentRequests] Database error:", e);
-    _error = "Failed to load requests from database.";
+    error = "Failed to load requests from database.";
   }
 
-  if (_error) {
+  if (error) {
     return (
       <DashboardShell title="Pending Requests" description="Database Error">
-        <div className="card text-error">{_error}</div>
+        <div className="card text-error">{error}</div>
       </DashboardShell>
     );
   }
