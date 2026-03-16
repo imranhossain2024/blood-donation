@@ -34,7 +34,7 @@ async function main() {
   console.log(`Found user: ${user.name} (${user.role})`);
   console.log(`Promoting to ${role}...`);
 
-  const updateData: any = { role };
+  const updateData: import("@prisma/client").Prisma.UserUpdateInput = { role };
   
   if (role === 'AGENT' && area) {
     console.log(`Setting Agent Area to: ${area}`);

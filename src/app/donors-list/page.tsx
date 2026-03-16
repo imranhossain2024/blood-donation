@@ -87,7 +87,7 @@ export default function DonorsListPage() {
           </label>
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
+            onChange={(e) => setSortBy(e.target.value as 'name' | 'bloodGroup' | 'location' | 'recent')}
             className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
           >
             <option value="recent">Most recent donors</option>
@@ -103,7 +103,7 @@ export default function DonorsListPage() {
           </label>
           <select
             value={filterAvailability}
-            onChange={(e) => setFilterAvailability(e.target.value as any)}
+            onChange={(e) => setFilterAvailability(e.target.value as 'all' | 'available' | 'unavailable')}
             className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
           >
             <option value="all">All donors</option>

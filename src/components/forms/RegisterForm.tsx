@@ -48,7 +48,7 @@ export default function RegisterForm() {
               className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
             />
             {state?.error && typeof state.error === "object" && "name" in state.error ? (
-              <p className="mt-2 text-xs text-brand-700">{(state.error as any).name?.[0]}</p>
+              <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).name?.[0]}</p>
             ) : null}
           </div>
           <div>
@@ -62,7 +62,7 @@ export default function RegisterForm() {
               className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
             />
             {state?.error && typeof state.error === "object" && "email" in state.error ? (
-              <p className="mt-2 text-xs text-brand-700">{(state.error as any).email?.[0]}</p>
+              <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).email?.[0]}</p>
             ) : null}
           </div>
           <div>
@@ -77,7 +77,7 @@ export default function RegisterForm() {
               className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
             />
             {state?.error && typeof state.error === "object" && "password" in state.error ? (
-              <p className="mt-2 text-xs text-brand-700">{(state.error as any).password?.[0]}</p>
+              <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).password?.[0]}</p>
             ) : null}
           </div>
           {state?.error && typeof state.error === "string" ? (

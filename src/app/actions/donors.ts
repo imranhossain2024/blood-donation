@@ -25,7 +25,7 @@ export async function getDonorsAction(params: {
      prisma.donorProfile.findMany({
       where: whereClause,
       include: {
-        user: { select: { id: true, name: true, image: true } },
+        user: { select: { id: true, name: true, image: true, email: true, phone: true } },
       },
       orderBy: { updatedAt: "desc" },
       skip,

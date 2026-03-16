@@ -2,7 +2,6 @@
 
 import { bloodGroupLabels } from "@/lib/utils";
 import { bloodGroups } from "@/lib/validators";
-import { BloodGroup } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { AvailabilityStatus, BloodGroup } from "@prisma/client";
+import { AvailabilityStatus, BloodGroup, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
               { location: { contains: keyword, mode: "insensitive" } },
               { user: { name: { contains: keyword, mode: "insensitive" } } },
               { user: { email: { contains: keyword, mode: "insensitive" } } },
-            ] as any,
+            ] as Prisma.DonorProfileWhereInput["OR"],
           }
         : {}),
     },

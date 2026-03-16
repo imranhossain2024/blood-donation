@@ -37,7 +37,7 @@ export default async function MatchedDonorsPage({
     },
     include: {
       user: {
-        select: { id: true, name: true, email: true },
+        select: { id: true, name: true, email: true, phone: true },
       },
     },
     take: 10,

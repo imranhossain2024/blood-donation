@@ -11,13 +11,13 @@ type DonorCardProps = {
     id: string;
     bloodGroup: BloodGroup;
     location: string;
-    phone?: string | null;
     availability: AvailabilityStatus;
     lastDonationDate?: Date | null;
     user: {
       id: string;
       name: string | null;
       email: string | null;
+      phone?: string | null;
     };
   };
 };
@@ -25,6 +25,8 @@ type DonorCardProps = {
 export default function DonorCard({ donor }: DonorCardProps) {
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const [isReported, setIsReported] = useState(false);
+
+  const phone = donor.user.phone;
 
   async function handleReport(formData: FormData) {
     const result = await reportTarget(formData);
@@ -64,16 +66,16 @@ export default function DonorCard({ donor }: DonorCardProps) {
       </div>
 
       <div className="mt-6 flex gap-2">
-        {donor.phone ? (
+        {phone ? (
           <>
             <a
-              href={`tel:${donor.phone}`}
+              href={`tel:${phone}`}
               className="btn btn-outline flex-1 py-2 text-xs"
             >
               Call
             </a>
             <a
-              href={`https://wa.me/${donor.phone.replace(/[^0-9]/g, "")}`}
+              href={`https://wa.me/${phone.replace(/[^0-9]/g, "")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary flex-1 py-2 text-xs"

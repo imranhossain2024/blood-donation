@@ -70,7 +70,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
             ))}
           </select>
           {state?.error && typeof state.error === "object" && "bloodGroup" in state.error ? (
-            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as any).bloodGroup?.[0]}</p>
+            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as Record<string, string[]>).bloodGroup?.[0]}</p>
           ) : null}
         </div>
 
@@ -87,7 +87,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
             className="w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all outline-none"
           />
           {state?.error && typeof state.error === "object" && "location" in state.error ? (
-            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as any).location?.[0]}</p>
+            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as Record<string, string[]>).location?.[0]}</p>
           ) : null}
         </div>
       </div>
@@ -106,7 +106,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
             className="w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all outline-none"
           />
           {state?.error && typeof state.error === "object" && "phone" in state.error ? (
-            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as any).phone?.[0]}</p>
+            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as Record<string, string[]>).phone?.[0]}</p>
           ) : null}
         </div>
 
@@ -125,7 +125,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
             className="w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all outline-none"
           />
           {state?.error && typeof state.error === "object" && "lastDonationDate" in state.error ? (
-            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as any).lastDonationDate?.[0]}</p>
+            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as Record<string, string[]>).lastDonationDate?.[0]}</p>
           ) : null}
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function DonorProfileForm({ profile }: DonorProfileFormProps) {
             ))}
           </select>
           {state?.error && typeof state.error === "object" && "availability" in state.error ? (
-            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as any).availability?.[0]}</p>
+            <p className="px-1 text-[10px] text-brand-700 font-medium">{(state.error as Record<string, string[]>).availability?.[0]}</p>
           ) : null}
       </div>
 

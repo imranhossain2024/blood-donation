@@ -16,7 +16,7 @@ export async function GET() {
       include: { user: true },
     });
     return NextResponse.json({ donors });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Failed to fetch donors' }, { status: 500 });
   }
 }

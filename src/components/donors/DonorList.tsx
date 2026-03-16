@@ -1,7 +1,7 @@
 
 import DonorCard from "@/components/DonorCard";
 import { prisma } from "@/lib/prisma";
-import { AvailabilityStatus, BloodGroup } from "@prisma/client";
+import { AvailabilityStatus, BloodGroup, Prisma } from "@prisma/client";
 import Link from "next/link";
 
 const PAGE_SIZE = 12;
@@ -17,20 +17,20 @@ export default async function DonorList({ searchParams }: { searchParams: Record
 
   const donationDateLimit = lastDonation ? new Date(Date.now() - parseInt(lastDonation) * 24 * 60 * 60 * 1000) : null;
 
-  const whereClause = {
+  const whereClause: Prisma.DonorProfileWhereInput = {
     approved: true,
     blocked: false,
     ...(bloodGroup ? { bloodGroup: bloodGroup as BloodGroup } : {}),
     ...(availability ? { availability: availability as AvailabilityStatus } : {}),
     ...(donationDateLimit ? { lastDonationDate: { gte: donationDateLimit } } : {}),
-    ...(location ? { location: { contains: location, mode: "insensitive" } } as any : {}),
+    ...(location ? { location: { contains: location, mode: "insensitive" } } : {}),
     ...(keyword
       ? {
         OR: [
           { location: { contains: keyword, mode: "insensitive" } },
           { user: { name: { contains: keyword, mode: "insensitive" } } },
           { user: { email: { contains: keyword, mode: "insensitive" } } },
-        ] as any,
+        ] as Prisma.DonorProfileWhereInput["OR"],
       }
       : {}),
   };
@@ -39,7 +39,7 @@ export default async function DonorList({ searchParams }: { searchParams: Record
     prisma.donorProfile.findMany({
       where: whereClause,
       include: {
-        user: { select: { id: true, name: true, email: true } },
+        user: { select: { id: true, name: true, email: true, phone: true } },
       },
       orderBy: { updatedAt: "desc" },
       skip,

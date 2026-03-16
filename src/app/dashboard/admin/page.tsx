@@ -222,7 +222,7 @@ export default async function AdminDashboardPage() {
         </div>
         <div className="grid gap-4">
           {reports.length ? (
-            reports.map((report: any) => (
+            reports.map((report: import('@prisma/client').Report) => (
               <div key={report.id} className="card border-l-4 border-l-red-500">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div>

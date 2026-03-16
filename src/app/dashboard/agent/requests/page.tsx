@@ -20,13 +20,15 @@ export default async function AgentRequestsPage() {
   // SERVER-SIDE DEBUG LOGGING
   console.log(`[AgentRequests] Fetching for Agent: ${session.user.email} | Area: "${agentArea}"`);
 
-  let pendingRequests: any[] = [];
+  let pendingRequests: (import("@prisma/client").BloodRequest & {
+    requester: { name: string | null; email: string | null; phone: string | null }
+  })[] = [];
   // let error = null; // Removed if unused or prefix with _
   let _error = null;
 
   try {
     // Normalize filtering logic
-    const whereClause: any = {
+    const whereClause: import("@prisma/client").Prisma.BloodRequestWhereInput = {
       status: "PENDING",
     };
 
