@@ -189,3 +189,13 @@ model ContactMessage {
   message   String
   createdAt DateTime @default(now())
 }
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}

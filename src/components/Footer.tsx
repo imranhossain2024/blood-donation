@@ -31,6 +31,11 @@ export default function Footer() {
                 Request Blood
               </Link>
             </li>
+            <li>
+              <Link href="/requests-list" className="hover:text-brand-700">
+                Recent Requests
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="text-sm">

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const protectedPaths = ["/dashboard", "/request", "/donors", "/profile", "/api/agent"];
+const protectedPaths = ["/dashboard", "/request", "/profile", "/api/agent"];
 const adminPaths = ["/dashboard/admin"];
 const donorPaths = ["/dashboard/donor"];
 const agentPaths = ["/dashboard/agent", "/api/agent"];

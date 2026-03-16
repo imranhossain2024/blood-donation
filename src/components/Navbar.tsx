@@ -28,8 +28,8 @@ export default async function Navbar() {
           <Link href="/donors" className="transition hover:text-ink">
             Donor List
           </Link>
-          <Link href="/request" className="transition hover:text-ink">
-            Request Blood
+          <Link href="/requests-list" className="transition hover:text-ink">
+            Browse Requests
           </Link>
           <Link href="/contact" className="transition hover:text-ink">
             Contact

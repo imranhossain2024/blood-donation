@@ -5,6 +5,7 @@ import Modal from "@/components/Modal";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const initialState: RegisterState = { ok: true };
 
@@ -69,12 +70,10 @@ export default function RegisterForm() {
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
               Password
             </label>
-            <input
+            <PasswordInput
               name="password"
-              type="password"
               minLength={6}
               required
-              className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
             />
             {state?.error && typeof state.error === "object" && "password" in state.error ? (
               <p className="mt-2 text-xs text-brand-700">{(state.error as Record<string, string[]>).password?.[0]}</p>

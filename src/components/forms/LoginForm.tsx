@@ -4,6 +4,7 @@ import Modal from "@/components/Modal";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import React, { FormEvent, useState } from "react";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -106,12 +107,18 @@ export default function LoginForm() {
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
               Password
             </label>
-            <input
+            <PasswordInput
               name="password"
-              type="password"
               required
-              className="mt-2 w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
             />
+            <div className="mt-2 flex justify-end">
+              <a
+                href="/forgot-password"
+                className="text-sm font-medium text-brand-700 hover:text-brand-800 transition-colors"
+              >
+                Forgot password?
+              </a>
+            </div>
           </div>
           {error ? <p className="text-sm text-brand-700">{error}</p> : null}
           <button type="submit" className="btn btn-primary w-full" disabled={loading}>

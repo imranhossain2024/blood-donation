@@ -21,10 +21,23 @@ export async function setDonorApproval(userId: string, approved: boolean) {
     data: { approved, blocked: false },
   });
 
-  await prisma.user.update({
+  // Only update role if current role is USER
+  const user = await prisma.user.findUnique({
     where: { id: userId },
-    data: { role: approved ? "DONOR" : "USER" },
+    select: { role: true },
   });
+
+  if (user?.role === "USER" && approved) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { role: "DONOR" },
+    });
+  } else if (user?.role === "DONOR" && !approved) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { role: "USER" },
+    });
+  }
 
   revalidatePath("/dashboard/admin");
   revalidatePath("/donors");
@@ -41,11 +54,20 @@ export async function setDonorBlocked(userId: string, blocked: boolean) {
 
   // If unblocking, we don't necessarily want to auto-approve,
   // but if blocking, we definitely want to demote to USER.
+  // If blocking, we demote to USER ONLY if they were a DONOR.
+  // We MUST NOT demote ADMINs or AGENTs.
   if (blocked) {
-    await prisma.user.update({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
-      data: { role: "USER" },
+      select: { role: true },
     });
+
+    if (user?.role === "DONOR") {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { role: "USER" },
+      });
+    }
   }
 
   revalidatePath("/dashboard/admin");
