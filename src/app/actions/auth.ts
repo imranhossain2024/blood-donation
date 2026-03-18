@@ -59,7 +59,7 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
     });
 
     return { ok: true };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Registration error:", error);
     return {
       ok: false,
@@ -109,7 +109,7 @@ export async function requestPasswordReset(formData: FormData) {
 
     // Always return success for security reasons (prevent account enumeration)
     return { success: "If an account with that email exists, a password reset link has been sent." };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Password reset request error:", error);
     return { error: "Something went wrong. Please try again later." };
   }
@@ -157,7 +157,7 @@ export async function resetPassword(values: unknown) {
     ]);
 
     return { success: "Password successfully updated! You can now log in." };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Password reset error:", error);
     return { error: "Something went wrong. Please try again later." };
   }
@@ -188,7 +188,7 @@ export async function updateProfile(formData: FormData) {
 
     revalidatePath("/profile");
     return { success: "Profile updated successfully!" };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Update profile error:", error);
     return { error: "Something went wrong. Please try again later." };
   }

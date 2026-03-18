@@ -8,7 +8,8 @@ const agentPaths = ["/dashboard/agent", "/api/agent"];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const secret = (process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET)?.trim();
+  const token = await getToken({ req, secret });
 
   const requiresAuth = protectedPaths.some((path) => pathname.startsWith(path));
 
