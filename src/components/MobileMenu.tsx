@@ -14,7 +14,8 @@ export default function MobileMenu({
 }: {
   isLoggedIn: boolean;
   sessionName?: string | null;
-  dict: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dict: any;
   locale: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);

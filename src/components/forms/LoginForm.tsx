@@ -6,7 +6,8 @@ import { useSearchParams } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 
-export default function LoginForm({ dict }: { dict?: Record<string, any> }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function LoginForm({ dict }: { dict?: any }) {
   const searchParams = useSearchParams();
   const callbackUrl = "/dashboard";
   const [error, setError] = useState<string | null>(null);

@@ -9,7 +9,8 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const initialState: RegisterState = { ok: true };
 
-export default function RegisterForm({ dict }: { dict?: Record<string, any> }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function RegisterForm({ dict }: { dict?: any }) {
   const [state, formAction] = useFormState(registerUser, initialState);
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();

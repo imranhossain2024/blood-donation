@@ -19,7 +19,8 @@ type DashboardShellProps = {
   title: string;
   description?: string;
   children: ReactNode;
-  dict?: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dict?: any;
 };
 
 export default function DashboardShell({
