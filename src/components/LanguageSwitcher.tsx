@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 
 export default function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
   const router = useRouter();

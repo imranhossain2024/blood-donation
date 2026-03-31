@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 
-export default function LoginForm({ dict }: { dict?: any }) {
+export default function LoginForm({ dict }: { dict?: Record<string, any> }) {
   const searchParams = useSearchParams();
   const callbackUrl = "/dashboard";
   const [error, setError] = useState<string | null>(null);

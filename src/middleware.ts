@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
 
   const requiresAuth = protectedPaths.some((path) => pathname.startsWith(path));
 
-  let response = NextResponse.next();
+  const response = NextResponse.next();
 
   // Set default language cookie if none exists
   if (!req.cookies.has("NEXT_LOCALE")) {

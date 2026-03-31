@@ -9,7 +9,7 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const initialState: RegisterState = { ok: true };
 
-export default function RegisterForm({ dict }: { dict?: any }) {
+export default function RegisterForm({ dict }: { dict?: Record<string, any> }) {
   const [state, formAction] = useFormState(registerUser, initialState);
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();

@@ -14,29 +14,12 @@ import {
 } from "lucide-react";
 import { useDashboard } from "@/context/DashboardContext";
 
-const baseLinks = [
-  { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/requests", label: "Requests", icon: ClipboardList },
-  { href: "/profile", label: "Profile", icon: UserCircle },
-];
-
-const donorLinks = [
-  { href: "/dashboard/donor", label: "Donor Center", icon: Activity },
-];
-
-const agentLinks = [
-  { href: "/dashboard/agent", label: "Agent Panel", icon: Users },
-];
-
-const adminLinks = [
-  { href: "/dashboard/admin", label: "Admin Panel", icon: ShieldCheck },
-];
 
 type DashboardShellProps = {
   title: string;
   description?: string;
   children: ReactNode;
-  dict?: any;
+  dict?: Record<string, any>;
 };
 
 export default function DashboardShell({

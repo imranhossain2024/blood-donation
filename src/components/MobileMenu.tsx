@@ -14,7 +14,7 @@ export default function MobileMenu({
 }: {
   isLoggedIn: boolean;
   sessionName?: string | null;
-  dict: any;
+  dict: Record<string, any>;
   locale: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
