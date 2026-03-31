@@ -60,7 +60,7 @@ export default async function AdminDashboardPage() {
           <div key={item.label} className="card relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 text-4xl group-hover:scale-110 transition-transform">{item.icon}</div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-ink/50 font-bold mb-1">{item.label}</div>
-            <h3 className={`text-4xl font-black ${item.color}`}>{item.value}</h3>
+            <h3 className={`text-3xl sm:text-4xl font-black ${item.color}`}>{item.value}</h3>
           </div>
         ))}
       </div>

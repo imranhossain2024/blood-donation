@@ -43,7 +43,7 @@ export default async function DonorDashboardPage() {
             <div className="text-[10px] uppercase tracking-[0.3em] text-ink/40 font-bold">
               Current Status
             </div>
-            <h3 className="mt-2 text-3xl font-black text-brand-900">
+            <h3 className="mt-2 text-2xl sm:text-3xl font-black text-brand-900">
               {profile?.availability ?? "AVAILABLE"}
             </h3>
             <div className="mt-6">

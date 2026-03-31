@@ -36,34 +36,34 @@ export default async function DashboardPage() {
       title={`Welcome, ${session.user.name ?? "there"}`}
       description="Quickly access your most important features."
     >
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:gap-6 grid-cols-2 lg:grid-cols-4">
         <div className="card flex flex-col items-center justify-center text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-ink/60 mb-1">Role</div>
-          <h3 className="text-2xl font-semibold mb-1">{session.user.role}</h3>
-          <p className="text-sm text-ink/70 mb-2">{profile ? "Donor profile active" : "Not a donor yet"}</p>
-          <Link href="/profile" className="btn btn-outline w-full">Profile</Link>
+          <h3 className="text-lg sm:text-2xl font-bold mb-0.5 break-words">{session.user.role}</h3>
+          <p className="text-[10px] sm:text-sm text-ink/70 mb-2 line-clamp-1">{profile ? "Active" : "New User"}</p>
+          <Link href="/profile" className="btn btn-outline w-full py-1.5 sm:py-2.5 text-[10px] sm:text-sm px-2">Profile</Link>
         </div>
         <div className="card flex flex-col items-center justify-center text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-ink/60 mb-1">Requests</div>
-          <h3 className="text-2xl font-semibold mb-1">{requests.length}</h3>
-          <p className="text-sm text-ink/70 mb-2">Recent blood requests</p>
-          <Link href="/dashboard/requests" className="btn btn-outline w-full">View Requests</Link>
+          <h3 className="text-lg sm:text-2xl font-bold mb-0.5">{requests.length}</h3>
+          <p className="text-[10px] sm:text-sm text-ink/70 mb-2">Recent requests</p>
+          <Link href="/dashboard/requests" className="btn btn-outline w-full py-1.5 sm:py-2.5 text-[10px] sm:text-sm px-2">View</Link>
         </div>
         <div className="card flex flex-col items-center justify-center text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-ink/60 mb-1">Notifications</div>
-          <h3 className="text-2xl font-semibold mb-1">{notifications.length}</h3>
-          <p className="text-sm text-ink/70 mb-2">Unread notifications</p>
-          <Link href="/profile" className="btn btn-outline w-full">Notifications</Link>
+          <h3 className="text-lg sm:text-2xl font-bold mb-0.5">{notifications.length}</h3>
+          <p className="text-[10px] sm:text-sm text-ink/70 mb-2">Notifications</p>
+          <Link href="/profile" className="btn btn-outline w-full py-1.5 sm:py-2.5 text-[10px] sm:text-sm px-2">Inbox</Link>
         </div>
         <div className="card flex flex-col items-center justify-center text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-ink/60 mb-1">Donor Center</div>
-          <h3 className="text-2xl font-semibold mb-1">{history.length}</h3>
-          <p className="text-sm text-ink/70 mb-2">Recent donations</p>
-          <Link href="/dashboard/donor" className="btn btn-outline w-full">Donor Center</Link>
+          <h3 className="text-lg sm:text-2xl font-bold mb-0.5">{history.length}</h3>
+          <p className="text-[10px] sm:text-sm text-ink/70 mb-2">Donations</p>
+          <Link href="/dashboard/donor" className="btn btn-outline w-full py-1.5 sm:py-2.5 text-[10px] sm:text-sm px-2">Donor</Link>
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-2">
+      <div className="mt-8 grid gap-8 grid-cols-1 lg:grid-cols-2">
         <div>
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-semibold">Recent Requests</h2>
