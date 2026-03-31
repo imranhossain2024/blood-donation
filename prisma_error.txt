@@ -1,0 +1,4 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Error: Could not resolve @prisma/client despite the installation that we just tried.
+Please try to install it by hand with pnpm add @prisma/client and rerun pnpm dlx "prisma generate" 🙏.

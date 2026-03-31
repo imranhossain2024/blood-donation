@@ -1,0 +1,135 @@
+src/app/actions/admin.ts(6,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/actions/agent.ts(6,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/actions/auth.ts(15,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/actions/donor.ts(7,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/actions/donors.ts(4,48): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/actions/makeadmin.ts(6,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/actions/report.ts(6,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/actions/request.ts(9,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/app/api/agent/add-donor/route.ts(4,43): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/app/api/agent/area-donors/route.ts(1,30): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/app/api/agent/assign-area/route.ts(4,43): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/app/api/agent/verify-donor/route.ts(4,43): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/app/api/donors/route.ts(3,56): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/api/donors/route.ts(5,43): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/app/api/requests/route.ts(3,31): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/api/requests/route.ts(5,43): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/app/dashboard/admin/donors/page.tsx(6,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/admin/donors/page.tsx(60,29): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/app/dashboard/admin/donors/page.tsx(83,33): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/donors/page.tsx(89,31): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(9,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/admin/page.tsx(106,34): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/app/dashboard/admin/page.tsx(118,29): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(123,29): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(154,33): error TS7006: Parameter 'request' implicitly has an 'any' type.
+src/app/dashboard/admin/page.tsx(183,33): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(188,33): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(196,31): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(225,41): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/dashboard/admin/page.tsx(237,27): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/page.tsx(241,29): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/reports/page.tsx(6,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/admin/reports/page.tsx(26,24): error TS7006: Parameter 'report' implicitly has an 'any' type.
+src/app/dashboard/admin/reports/page.tsx(48,25): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/reports/page.tsx(54,27): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/admin/requests/page.tsx(5,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/admin/requests/page.tsx(6,31): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/dashboard/admin/requests/page.tsx(68,31): error TS7006: Parameter 'request' implicitly has an 'any' type.
+src/app/dashboard/admin/requests/RequestActions.tsx(4,31): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/dashboard/admin/requests/RequestActions.tsx(16,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/app/dashboard/admin/requests/RequestActions.tsx(28,23): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/app/dashboard/agent/donor/[id]/page.tsx(4,26): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/app/dashboard/agent/donor/[id]/page.tsx(8,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/agent/donor/[id]/page.tsx(118,21): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/agent/page.tsx(7,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/agent/page.tsx(40,10): error TS2786: 'AgentDonorList' cannot be used as a JSX component.
+  Its type '({ agentArea, agentId }: Props) => Promise<Element>' is not a valid JSX element type.
+    Type '({ agentArea, agentId }: Props) => Promise<Element>' is not assignable to type '(props: any, deprecatedLegacyContext?: any) => ReactNode'.
+      Type 'Promise<Element>' is not assignable to type 'ReactNode'.
+src/app/dashboard/agent/requests/page.tsx(8,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/agent/requests/page.tsx(9,26): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/app/dashboard/agent/requests/page.tsx(18,22): error TS18047: 'session' is possibly 'null'.
+src/app/dashboard/agent/requests/page.tsx(21,54): error TS18047: 'session' is possibly 'null'.
+src/app/dashboard/agent/requests/page.tsx(23,32): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/dashboard/agent/requests/page.tsx(31,31): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/dashboard/donor/page.tsx(80,29): error TS7006: Parameter 'request' implicitly has an 'any' type.
+src/app/dashboard/donor/page.tsx(80,38): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/app/dashboard/donor/page.tsx(123,31): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/donor/page.tsx(129,31): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/donor/page.tsx(138,29): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/dashboard/page.tsx(7,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/page.tsx(76,30): error TS7006: Parameter 'req' implicitly has an 'any' type.
+src/app/dashboard/page.tsx(91,29): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/app/dashboard/requests/[id]/matches/page.tsx(6,26): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/app/dashboard/requests/[id]/matches/page.tsx(68,33): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/app/dashboard/requests/page.tsx(8,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/dashboard/requests/page.tsx(36,28): error TS7006: Parameter 'request' implicitly has an 'any' type.
+src/app/dashboard/requests/page.tsx(58,31): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/app/donors-list/page.tsx(5,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/donors/page.tsx(25,10): error TS2786: 'DonorStats' cannot be used as a JSX component.
+  Its type '() => Promise<Element>' is not a valid JSX element type.
+    Type '() => Promise<Element>' is not assignable to type '(props: any, deprecatedLegacyContext?: any) => ReactNode'.
+      Type 'Promise<Element>' is not assignable to type 'ReactNode'.
+src/app/donors/page.tsx(33,10): error TS2786: 'DonorList' cannot be used as a JSX component.
+  Its type '({ searchParams }: { searchParams: Record<string, string | string[] | undefined>; }) => Promise<Element>' is not a valid JSX element type.
+    Type '({ searchParams }: { searchParams: Record<string, string | string[] | undefined>; }) => Promise<Element>' is not assignable to type '(props: any, deprecatedLegacyContext?: any) => ReactNode'.
+      Type 'Promise<Element>' is not assignable to type 'ReactNode'.
+src/app/layout.tsx(1,31): error TS2307: Cannot find module 'next' or its corresponding type declarations.
+src/app/layout.tsx(3,45): error TS2307: Cannot find module 'next/font/google' or its corresponding type declarations.
+src/app/layout.tsx(37,14): error TS2786: 'Navbar' cannot be used as a JSX component.
+  Its type '() => Promise<Element>' is not a valid JSX element type.
+    Type '() => Promise<Element>' is not assignable to type '(props: any, deprecatedLegacyContext?: any) => ReactNode'.
+      Type 'Promise<Element>' is not assignable to type 'ReactNode'.
+src/app/not-found.tsx(1,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/profile/page.tsx(5,28): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/app/profile/page.tsx(45,19): error TS2322: Type '(_formData: FormData) => Promise<void>' is not assignable to type 'string'.
+src/app/request/page.tsx(13,36): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/app/requests-list/page.tsx(7,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/app/requests-list/page.tsx(45,25): error TS7006: Parameter 'req' implicitly has an 'any' type.
+src/app/reset-password/page.tsx(3,26): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/AgentDonorList.tsx(4,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/AgentDonorList.tsx(5,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/components/AgentDonorList.tsx(48,24): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/components/AuthMenu.tsx(4,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/DashboardShell.tsx(3,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/DashboardShell.tsx(4,29): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/DonorCard.tsx(5,48): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/components/DonorCard.tsx(109,17): error TS2322: Type '(formData: FormData) => Promise<void>' is not assignable to type 'string'.
+src/components/donors/DonorList.tsx(4,56): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/components/donors/DonorList.tsx(5,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/donors/DonorList.tsx(69,26): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/components/donors/DonorsClientView.tsx(7,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/donors/DonorsClientView.tsx(8,33): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/donors/DonorsClientView.tsx(60,26): error TS7006: Parameter 'donor' implicitly has an 'any' type.
+src/components/donors/DonorStats.tsx(3,32): error TS2307: Cannot find module 'next/cache' or its corresponding type declarations.
+src/components/donors/SearchFilters.tsx(5,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/donors/SearchFilters.tsx(6,27): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/Footer.tsx(1,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/forms/AvailabilityToggle.tsx(29,15): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/components/forms/AvailabilityToggle.tsx(47,15): error TS2322: Type '() => Promise<void>' is not assignable to type 'string'.
+src/components/forms/BloodRequestForm.tsx(6,28): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/components/forms/BloodRequestForm.tsx(45,27): error TS2322: Type '(formData: FormData) => Promise<void>' is not assignable to type 'string'.
+src/components/forms/DonorProfileForm.tsx(6,28): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/components/forms/DonorProfileForm.tsx(9,10): error TS2305: Module '"react-dom"' has no exported member 'useFormState'.
+src/components/forms/LoginForm.tsx(5,33): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/forms/MakeAdminForm.tsx(18,21): error TS2345: Argument of type '() => Promise<void>' is not assignable to parameter of type 'TransitionFunction'.
+  Type 'Promise<void>' is not assignable to type 'VoidOrUndefinedOnly'.
+src/components/forms/RegisterForm.tsx(6,10): error TS2305: Module '"react-dom"' has no exported member 'useFormState'.
+src/components/forms/RegisterForm.tsx(7,27): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/forms/ResetPasswordForm.tsx(5,27): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/components/Hero.tsx(2,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/components/Navbar.tsx(1,18): error TS2307: Cannot find module 'next/link' or its corresponding type declarations.
+src/lib/auth.ts(7,22): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/lib/permissions.ts(1,27): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/lib/prisma.ts(1,30): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/middleware.ts(1,43): error TS2307: Cannot find module 'next/server' or its corresponding type declarations.
+src/scripts/checkUserStatus.ts(2,30): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/scripts/debugRequests.ts(2,30): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/scripts/debugRequests.ts(33,53): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/scripts/debugRequests.ts(53,22): error TS7006: Parameter 'req' implicitly has an 'any' type.
+src/scripts/listUsers.ts(2,30): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/scripts/promoteUser.ts(2,36): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.
+src/scripts/promoteUser.ts(37,28): error TS2307: Cannot find module '@prisma/client' or its corresponding type declarations.

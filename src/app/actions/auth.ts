@@ -115,10 +115,12 @@ export async function requestPasswordReset(formData: FormData) {
   }
 }
 
+import { z } from "zod";
+
 /**
  * Resets the password using a valid token.
  */
-export async function resetPassword(values: unknown) {
+export async function resetPassword(values: z.infer<typeof resetPasswordSchema>) {
   const validated = resetPasswordSchema.safeParse(values);
   if (!validated.success) {
     return { error: "Invalid input data" };
