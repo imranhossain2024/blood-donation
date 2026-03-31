@@ -93,7 +93,7 @@ export default async function DonorList({ searchParams }: { searchParams: Record
       ) : (
         <div className="card flex flex-col items-center justify-center py-12 text-center">
           <div className="text-4xl mb-3">🔍</div>
-          <h3 className="text-xl font-semibold">No donors found</h3>
+          <h3 className="text-xl font-semibold">No donors found!</h3>
           <p className="mt-2 text-sm text-ink/70">Try adjusting your filters.</p>
         </div>
       )}
