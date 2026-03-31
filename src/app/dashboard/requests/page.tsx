@@ -6,6 +6,8 @@ import { cancelRequest } from "@/app/actions/request";
 import { bloodGroupLabels } from "@/lib/utils";
 
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { getDictionary } from "@/lib/dictionary";
 
 const PAGE_SIZE = 10;
 
@@ -28,8 +30,11 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
   ]);
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
+  const locale = cookies().get("NEXT_LOCALE")?.value || "en";
+  const dict = await getDictionary(locale);
+
   return (
-    <DashboardShell title="Requests" description="Track your blood requests.">
+    <DashboardShell title={dict.requestsPage.title} description={dict.requestsPage.desc} dict={dict}>
       <div className="grid gap-4">
         {requests.length ? (
           <>
@@ -41,7 +46,7 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
                       {new Date(request.createdAt).toLocaleDateString()}
                     </div>
                     <h3 className="mt-2 text-lg md:text-xl font-semibold">
-                      {bloodGroupLabels[request.bloodGroup]} - {request.units} units
+                      {bloodGroupLabels[request.bloodGroup]} - {request.units} {dict.requestsPage.units}
                     </h3>
                     <p className="mt-1 text-sm text-ink/70">{request.location}</p>
                   </div>
@@ -53,7 +58,7 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
                           href={`/dashboard/requests/${request.id}/matches`}
                           className="btn btn-primary"
                         >
-                          Find Matches
+                          {dict.requestsPage.findMatches}
                         </Link>
                         <form action={async () => {
                           "use server";
@@ -61,7 +66,7 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
                           return;
                         }}>
                           <button type="submit" className="btn btn-outline">
-                            Cancel
+                            {dict.requestsPage.cancel}
                           </button>
                         </form>
                       </>
@@ -78,21 +83,21 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
                   className={`btn btn-outline ${page <= 1 ? "pointer-events-none opacity-50" : ""}`}
                   aria-disabled={page <= 1}
                 >
-                  Previous
+                  {dict.requestsPage.prev}
                 </Link>
-                <span className="text-sm font-semibold">Page {page} of {totalPages}</span>
+                <span className="text-sm font-semibold">{dict.requestsPage.page} {page} {dict.requestsPage.of} {totalPages}</span>
                 <Link
                   href={`?page=${page + 1}`}
                   className={`btn btn-outline ${page >= totalPages ? "pointer-events-none opacity-50" : ""}`}
                   aria-disabled={page >= totalPages}
                 >
-                  Next
+                  {dict.requestsPage.next}
                 </Link>
               </div>
             )}
           </>
         ) : (
-          <div className="card">No requests yet.</div>
+          <div className="card">{dict.requestsPage.noRequests}</div>
         )}
       </div>
     </DashboardShell>

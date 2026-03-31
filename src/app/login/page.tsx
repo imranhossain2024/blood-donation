@@ -1,10 +1,14 @@
 import LoginForm from "@/components/forms/LoginForm";
+import { cookies } from "next/headers";
+import { getDictionary } from "@/lib/dictionary";
 
-export default function LoginPage({
+export default async function LoginPage({
   searchParams,
 }: {
   searchParams: Record<string, string | string[] | undefined>;
 }) {
+  const locale = cookies().get("NEXT_LOCALE")?.value || "en";
+  const dict = await getDictionary(locale);
   const registered = searchParams.registered === "1";
 
   return (
@@ -14,7 +18,7 @@ export default function LoginPage({
           Registration ??? ?????! ??? ???? ?????
         </div>
       ) : null}
-      <LoginForm />
+      <LoginForm dict={dict} />
     </section>
   );
 }

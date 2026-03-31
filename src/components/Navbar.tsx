@@ -3,8 +3,14 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AuthMenu from "@/components/AuthMenu";
 import MobileMenu from "@/components/MobileMenu";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { cookies } from "next/headers";
+import { getDictionary } from "@/lib/dictionary";
+
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
+  const locale = cookies().get("NEXT_LOCALE")?.value || "en";
+  const dict = await getDictionary(locale);
 
   return (
     <header className="sticky top-0 z-40 border-b border-brand-100 bg-sand/80 backdrop-blur">
@@ -23,16 +29,16 @@ export default async function Navbar() {
 
         <nav className="hidden items-center gap-6 text-sm font-semibold text-ink/70 md:flex">
           <Link href="/about" className="transition hover:text-ink">
-            About
+            {dict.navbar.about}
           </Link>
           <Link href="/donors" className="transition hover:text-ink">
-            Donor List
+            {dict.navbar.donorList}
           </Link>
           <Link href="/requests-list" className="transition hover:text-ink">
-            Browse Requests
+            {dict.navbar.browseRequests}
           </Link>
           <Link href="/contact" className="transition hover:text-ink">
-            Contact
+            {dict.navbar.contact}
           </Link>
         </nav>
 
@@ -42,17 +48,20 @@ export default async function Navbar() {
           ) : (
             <div className="flex items-center gap-2">
               <Link href="/login" className="btn btn-outline">
-                Login
+                {dict.navbar.login}
               </Link>
               <Link href="/register" className="btn btn-primary">
-                Register
+                {dict.navbar.register}
               </Link>
             </div>
           )}
+          <LanguageSwitcher currentLocale={locale} />
         </div>
         <MobileMenu 
           isLoggedIn={!!session?.user} 
           sessionName={session?.user?.name} 
+          dict={dict}
+          locale={locale}
         />
       </div>
     </header>

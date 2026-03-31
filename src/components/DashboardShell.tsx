@@ -36,23 +36,29 @@ type DashboardShellProps = {
   title: string;
   description?: string;
   children: ReactNode;
+  dict?: any;
 };
 
 export default function DashboardShell({
   title,
   description,
   children,
+  dict,
 }: DashboardShellProps) {
   const pathname = usePathname() ?? "/";
   const { role } = useDashboard(); // Uses cached role for instant load
 
-  const links = [...baseLinks];
-  if (role === "DONOR" || role === "USER") links.splice(1, 0, ...donorLinks);
-  if (role === "AGENT") links.splice(1, 0, ...agentLinks);
+  const links = [
+    { href: "/dashboard", label: dict?.dashboardNav?.overview || "Overview", icon: LayoutDashboard },
+    { href: "/dashboard/requests", label: dict?.dashboardNav?.requests || "Requests", icon: ClipboardList },
+    { href: "/profile", label: dict?.dashboardNav?.profile || "Profile", icon: UserCircle },
+  ];
+
+  if (role === "DONOR" || role === "USER") links.splice(1, 0, { href: "/dashboard/donor", label: dict?.dashboardNav?.donorCenter || "Donor Center", icon: Activity });
+  if (role === "AGENT") links.splice(1, 0, { href: "/dashboard/agent", label: dict?.dashboardNav?.agentPanel || "Agent Panel", icon: Users });
   if (role === "ADMIN") {
-    links.push(...adminLinks);
-    // Admins might also want to search donors
-    links.splice(1, 0, { href: "/donors", label: "Find Donors", icon: Users });
+    links.push({ href: "/dashboard/admin", label: dict?.dashboardNav?.adminPanel || "Admin Panel", icon: ShieldCheck });
+    links.splice(1, 0, { href: "/donors", label: dict?.dashboardNav?.findDonors || "Find Donors", icon: Users });
   }
 
   return (
@@ -60,7 +66,7 @@ export default function DashboardShell({
       <aside className="space-y-4">
         <div className="rounded-2xl bg-white/80 p-5 shadow-sm border border-brand-100">
           <div className="text-[10px] uppercase tracking-[0.3em] text-ink/40 font-bold mb-2">
-            Control Panel
+            {dict?.dashboardNav?.controlPanel || "Control Panel"}
           </div>
           <h2 className="text-xl font-bold text-brand-900 leading-tight">{title}</h2>
           {description ? (

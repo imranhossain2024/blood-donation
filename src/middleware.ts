@@ -13,6 +13,13 @@ export async function middleware(req: NextRequest) {
 
   const requiresAuth = protectedPaths.some((path) => pathname.startsWith(path));
 
+  let response = NextResponse.next();
+
+  // Set default language cookie if none exists
+  if (!req.cookies.has("NEXT_LOCALE")) {
+    response.cookies.set("NEXT_LOCALE", "en", { path: "/", maxAge: 31536000 });
+  }
+
   if (requiresAuth && !token) {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
@@ -43,16 +50,18 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
   matcher: [
-    "/dashboard/:path*",
-    "/request",
-    "/donors",
-    "/profile/:path*",
-    "/api/agent/:path*"
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    "/((?!_next/static|_next/image|favicon.ico).*)",
   ],
 };
 

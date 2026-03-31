@@ -1,45 +1,46 @@
 import { Droplet, HeartPulse, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { getDictionary } from "@/lib/dictionary";
 
-const features = [
-  {
-    icon: Droplet,
-    title: "Verified donor matching",
-    description:
-      "Find nearby donors based on blood group, location, and availability.",
-  },
-  {
-    icon: HeartPulse,
-    title: "Real-time request tracking",
-    description:
-      "Track each request from creation to completion with live updates.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Role-based access control",
-    description:
-      "Admins, donors, and users get tailored dashboards and workflows.",
-  },
-];
+export default async function Hero() {
+  const locale = cookies().get("NEXT_LOCALE")?.value || "en";
+  const dict = await getDictionary(locale);
 
-export default function Hero() {
+  const features = [
+    {
+      icon: Droplet,
+      title: dict.hero.f1Title,
+      description: dict.hero.f1Desc,
+    },
+    {
+      icon: HeartPulse,
+      title: dict.hero.f2Title,
+      description: dict.hero.f2Desc,
+    },
+    {
+      icon: ShieldCheck,
+      title: dict.hero.f3Title,
+      description: dict.hero.f3Desc,
+    },
+  ];
+
   return (
     <section className="container-pad grid gap-10 pb-16 pt-16 md:grid-cols-[1.2fr_0.8fr] md:items-center">
       <div className="fade-up">
-        <div className="pill">Together we save lives</div>
+        <div className="pill">{dict.hero.pill}</div>
         <h1 className="mt-5 text-4xl font-semibold leading-tight text-balance md:text-5xl">
-          Build a reliable blood donation network in your city.
+          {dict.hero.heading}
         </h1>
         <p className="mt-4 text-base text-ink/70 md:text-lg">
-          BloodBond connects donors, recipients, and hospitals in one responsive
-          platform. Register, request, and manage donations with confidence.
+          {dict.hero.subheading}
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/dashboard/donor" className="btn btn-primary">
-            Become a donor
+            {dict.hero.donorBtn}
           </Link>
           <Link href="/request" className="btn btn-outline">
-            Request blood
+            {dict.hero.requestBtn}
           </Link>
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-3">
@@ -61,9 +62,9 @@ export default function Hero() {
 
       <div className="relative fade-up fade-up-delay-2">
         <div className="card bg-white/90">
-          <h2 className="text-2xl font-semibold">Urgent request board</h2>
+          <h2 className="text-2xl font-semibold">{dict.hero.urgentTitle}</h2>
           <p className="mt-2 text-sm text-ink/70">
-            See the latest requests and respond quickly.
+            {dict.hero.urgentDesc}
           </p>
           <div className="mt-6 space-y-4">
             {[
@@ -82,7 +83,7 @@ export default function Hero() {
                   <div className="text-lg font-semibold text-ink">{item.group}</div>
                 </div>
                 <div className="text-sm font-semibold text-brand-700">
-                  {item.units} units
+                  {item.units} {dict.hero.units}
                 </div>
               </div>
             ))}

@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 
-export default function LoginForm() {
+export default function LoginForm({ dict }: { dict?: any }) {
   const searchParams = useSearchParams();
   const callbackUrl = "/dashboard";
   const [error, setError] = useState<string | null>(null);
@@ -80,9 +80,9 @@ export default function LoginForm() {
         </div>
       </Modal>
       <div className="card max-w-lg">
-        <h1 className="text-3xl font-semibold">Welcome back</h1>
+        <h1 className="text-3xl font-semibold">{dict?.auth?.loginTitle || "Welcome back"}</h1>
         <p className="mt-2 text-sm text-ink/70">
-          Login with your email and password or continue with Google.
+          {dict?.auth?.loginDesc || "Login to your account to continue saving lives."}
         </p>
 
         {successMessage && (
@@ -94,7 +94,7 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-              Email
+              {dict?.auth?.email || "Email"}
             </label>
             <input
               name="email"
@@ -105,7 +105,7 @@ export default function LoginForm() {
           </div>
           <div>
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-              Password
+              {dict?.auth?.password || "Password"}
             </label>
             <PasswordInput
               name="password"
@@ -122,7 +122,7 @@ export default function LoginForm() {
           </div>
           {error ? <p className="text-sm text-brand-700">{error}</p> : null}
           <button type="submit" className="btn btn-primary w-full" disabled={loading}>
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? "..." : (dict?.auth?.loginBtn || "Sign in")}
           </button>
         </form>
 

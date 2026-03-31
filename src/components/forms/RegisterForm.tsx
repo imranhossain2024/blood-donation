@@ -9,7 +9,7 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 
 const initialState: RegisterState = { ok: true };
 
-export default function RegisterForm() {
+export default function RegisterForm({ dict }: { dict?: any }) {
   const [state, formAction] = useFormState(registerUser, initialState);
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
@@ -33,14 +33,14 @@ export default function RegisterForm() {
         </div>
       </Modal>
       <div className="card max-w-lg">
-        <h1 className="text-3xl font-semibold">Create your account</h1>
+        <h1 className="text-3xl font-semibold">{dict?.auth?.registerTitle || "Create your account"}</h1>
         <p className="mt-2 text-sm text-ink/70">
-          Register to request blood, track status, and become a verified donor.
+          {dict?.auth?.registerDesc || "Register to request blood, track status, and become a verified donor."}
         </p>
         <form action={formAction} className="mt-6 space-y-4">
           <div>
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-              Full name
+              {dict?.auth?.name || "Full name"}
             </label>
             <input
               name="name"
@@ -54,7 +54,7 @@ export default function RegisterForm() {
           </div>
           <div>
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-              Email
+              {dict?.auth?.email || "Email"}
             </label>
             <input
               name="email"
@@ -68,7 +68,7 @@ export default function RegisterForm() {
           </div>
           <div>
             <label className="text-xs uppercase tracking-[0.3em] text-ink/60">
-              Password
+              {dict?.auth?.password || "Password"}
             </label>
             <PasswordInput
               name="password"
@@ -83,7 +83,7 @@ export default function RegisterForm() {
             <p className="mt-2 text-center text-xs text-brand-700 font-bold">{state.error}</p>
           ) : null}
           <button type="submit" className="btn btn-primary w-full">
-            Register
+            {dict?.auth?.registerBtn || "Register"}
           </button>
         </form>
       </div>

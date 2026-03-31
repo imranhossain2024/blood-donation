@@ -4,13 +4,18 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function MobileMenu({
   isLoggedIn,
   sessionName,
+  dict,
+  locale
 }: {
   isLoggedIn: boolean;
   sessionName?: string | null;
+  dict: any;
+  locale: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -32,11 +37,14 @@ export default function MobileMenu({
 
       {isOpen && (
         <div className="absolute left-0 top-[76px] z-50 flex w-full flex-col gap-4 border-b border-brand-100 bg-sand px-6 py-6 shadow-glow">
+          <div className="flex justify-end border-b border-brand-100 pb-4">
+            <LanguageSwitcher currentLocale={locale} />
+          </div>
           <nav className="flex flex-col gap-5 text-base font-semibold text-ink/90">
-            <Link href="/about" className="hover:text-brand-700">About</Link>
-            <Link href="/donors" className="hover:text-brand-700">Donor List</Link>
-            <Link href="/requests-list" className="hover:text-brand-700">Browse Requests</Link>
-            <Link href="/contact" className="hover:text-brand-700">Contact</Link>
+            <Link href="/about" className="hover:text-brand-700">{dict.navbar.about}</Link>
+            <Link href="/donors" className="hover:text-brand-700">{dict.navbar.donorList}</Link>
+            <Link href="/requests-list" className="hover:text-brand-700">{dict.navbar.browseRequests}</Link>
+            <Link href="/contact" className="hover:text-brand-700">{dict.navbar.contact}</Link>
           </nav>
           
           <div className="mt-4 border-t border-brand-100 pt-6">
@@ -44,16 +52,16 @@ export default function MobileMenu({
               <div className="flex flex-col gap-4">
                 <div className="text-sm font-semibold text-ink/70">Signed in as {sessionName}</div>
                 <Link href="/dashboard" className="btn btn-outline text-center justify-center">
-                  Dashboard
+                  {dict.navbar.dashboard}
                 </Link>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
                 <Link href="/login" className="btn btn-outline text-center justify-center">
-                  Login
+                  {dict.navbar.login}
                 </Link>
                 <Link href="/register" className="btn btn-primary text-center justify-center">
-                  Register
+                  {dict.navbar.register}
                 </Link>
               </div>
             )}
