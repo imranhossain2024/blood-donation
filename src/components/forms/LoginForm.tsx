@@ -139,7 +139,7 @@ export default function LoginForm({ dict }: { dict?: any }) {
           onClick={() => signIn("google", { callbackUrl })}
           className="btn btn-outline w-full"
         >
-          Continue with Google
+          {dict?.auth?.continueWithGoogle || "Continue with Google"}
         </button>
       </div>
     </>

@@ -80,7 +80,8 @@
     "confirmPass": "Confirm Password",
     "registerBtn": "Create Account",
     "hasAccount": "Already have an account?",
-    "loginLink": "Log In"
+    "loginLink": "Log In",
+    "continueWithGoogle": "Continue with Google"
   },
   "requestsPage": {
     "title": "Requests",

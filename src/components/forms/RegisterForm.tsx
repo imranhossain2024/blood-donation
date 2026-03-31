@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from "next-auth/react";
 
 import { registerUser, type RegisterState } from "@/app/actions/auth";
 import Modal from "@/components/Modal";
@@ -87,6 +88,20 @@ export default function RegisterForm({ dict }: { dict?: any }) {
             {dict?.auth?.registerBtn || "Register"}
           </button>
         </form>
+
+        <div className="my-5 flex items-center gap-3 text-xs text-ink/60">
+          <span className="h-px flex-1 bg-brand-100" />
+          Or
+          <span className="h-px flex-1 bg-brand-100" />
+        </div>
+
+        <button
+          type="button"
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          className="btn btn-outline w-full"
+        >
+          {dict?.auth?.continueWithGoogle || "Continue with Google"}
+        </button>
       </div>
     </>
   );

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { signOut } from "next-auth/react";
+import { signOut, signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
@@ -71,6 +71,17 @@ export default function MobileMenu({
                 <Link href="/register" className="btn btn-primary text-center justify-center">
                   {dict.navbar.register}
                 </Link>
+                <div className="my-2 flex items-center gap-3 text-[10px] text-ink/40">
+                  <span className="h-px flex-1 bg-brand-50" />
+                  OR
+                  <span className="h-px flex-1 bg-brand-50" />
+                </div>
+                <button
+                  onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+                  className="btn btn-outline text-center justify-center"
+                >
+                  {dict?.auth?.continueWithGoogle || "Login with Google"}
+                </button>
               </div>
             )}
           </div>

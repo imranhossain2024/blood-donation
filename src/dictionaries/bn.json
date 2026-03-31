@@ -80,7 +80,8 @@
     "confirmPass": "পাসওয়ার্ড নিশ্চিত করুন",
     "registerBtn": "অ্যাকাউন্ট তৈরি করুন",
     "hasAccount": "আগে থেকেই অ্যাকাউন্ট আছে?",
-    "loginLink": "লগইন করুন"
+    "loginLink": "লগইন করুন",
+    "continueWithGoogle": "গুগল দিয়ে প্রবেশ করুন"
   },
   "requestsPage": {
     "title": "আবেদনসমূহ",
