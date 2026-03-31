@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
@@ -55,6 +56,12 @@ export default function MobileMenu({
                 <Link href="/dashboard" className="btn btn-outline text-center justify-center">
                   {dict.navbar.dashboard}
                 </Link>
+                <button 
+                  onClick={() => signOut()}
+                  className="btn btn-outline border-brand-200 text-brand-600 hover:bg-brand-50 text-center justify-center"
+                >
+                  {dict.navbar.signOut}
+                </button>
               </div>
             ) : (
               <div className="flex flex-col gap-3">

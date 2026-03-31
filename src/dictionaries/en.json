@@ -6,7 +6,8 @@
     "contact": "Contact",
     "login": "Login",
     "register": "Register",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "signOut": "Sign Out"
   },
   "hero": {
     "pill": "Together we save lives",
