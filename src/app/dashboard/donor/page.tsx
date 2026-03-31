@@ -32,7 +32,7 @@ export default async function DonorDashboardPage() {
       title="Donor Center"
       description="Manage your donation status and respond to life-saving requests."
     >
-      <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-8 grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-8">
           <DonorProfileForm profile={profile} />
           

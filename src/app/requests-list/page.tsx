@@ -39,7 +39,7 @@ export default async function BloodRequestsPage({ searchParams }: { searchParams
         title={dict.requestsListPage.title}
         subtitle={dict.requestsListPage.subtitle}
       />
-      <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {requests.length === 0 ? (
           <div className="card col-span-full text-center py-12">
             <div className="text-4xl mb-3">🩸</div>

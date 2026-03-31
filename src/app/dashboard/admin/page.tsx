@@ -51,7 +51,7 @@ export default async function AdminDashboardPage() {
       title="Admin Control Panel"
       description="Manage donors, requests, and view analytics."
     >
-      <div className="grid gap-6 md:grid-cols-3 mb-10">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mb-10">
         {[ 
           { label: "Total Users", value: totalUsers, icon: "👥", color: "text-blue-600" },
           { label: "Approved Donors", value: totalDonors, icon: "🩸", color: "text-brand-600" },
@@ -65,7 +65,7 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 mb-10">
+      <div className="grid gap-8 grid-cols-1 lg:grid-cols-2 mb-10">
         <div className="card border-t-4 border-t-brand-500">
           <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
             <span className="p-1.5 bg-brand-50 rounded-lg text-brand-600">📊</span>
@@ -101,7 +101,7 @@ export default async function AdminDashboardPage() {
               View All Donors →
             </Link>
           </div>
-          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+          <div className="space-y-4">
             {pendingDonors.length ? (
               pendingDonors.map((donor) => (
                 <div key={donor.id} className="rounded-xl border border-brand-100 p-4 bg-sand/30 hover:bg-white transition-colors">

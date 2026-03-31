@@ -46,9 +46,9 @@ export default function DashboardShell({
   }
 
   return (
-    <section className="container-pad grid gap-8 py-12 md:grid-cols-[240px_1fr]">
-      <aside className="space-y-4">
-        <div className="rounded-2xl bg-white/80 p-5 shadow-sm border border-brand-100">
+    <section className="container-pad grid gap-8 py-12 lg:grid-cols-[280px_1fr]">
+      <aside className="lg:sticky lg:top-24 lg:h-fit space-y-4">
+        <div className="rounded-2xl bg-white/80 p-5 shadow-sm border border-brand-100 hidden lg:block">
           <div className="text-[10px] uppercase tracking-[0.3em] text-ink/40 font-bold mb-2">
             {dict?.dashboardNav?.controlPanel || "Control Panel"}
           </div>
@@ -58,7 +58,7 @@ export default function DashboardShell({
           ) : null}
         </div>
         <nav
-          className="flex flex-row space-x-2 overflow-x-auto pb-2 scrollbar-hide md:flex-col md:space-x-0 md:space-y-1.5 md:pb-0"
+          className="flex flex-row space-x-2 overflow-x-auto pb-4 scrollbar-hide lg:flex-col lg:space-x-0 lg:space-y-1.5 lg:pb-0"
           aria-label="Dashboard navigation"
         >
           {links.map((link) => {
@@ -72,10 +72,10 @@ export default function DashboardShell({
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-shrink-0 items-center gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                className={`flex flex-shrink-0 items-center gap-3 rounded-xl border px-5 py-3.5 text-sm font-bold transition-all duration-300 ${
                   isActive
-                    ? "border-brand-600 bg-brand-600 text-white shadow-md"
-                    : "border-transparent bg-white/40 text-ink/70 hover:border-brand-100 hover:bg-white hover:text-brand-700 hover:shadow-sm"
+                    ? "border-brand-600 bg-brand-600 text-white shadow-lg scale-[1.02]"
+                    : "border-transparent bg-white/60 text-ink/70 hover:border-brand-100 hover:bg-white hover:text-brand-700 hover:shadow-md"
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >

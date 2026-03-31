@@ -36,7 +36,7 @@ export default async function DashboardPage() {
       title={`Welcome, ${session.user.name ?? "there"}`}
       description="Quickly access your most important features."
     >
-      <div className="grid gap-6 md:grid-cols-4">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <div className="card flex flex-col items-center justify-center text-center">
           <div className="text-xs uppercase tracking-[0.3em] text-ink/60 mb-1">Role</div>
           <h3 className="text-2xl font-semibold mb-1">{session.user.role}</h3>
