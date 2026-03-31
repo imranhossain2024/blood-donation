@@ -56,9 +56,11 @@ export default function LoginForm({ dict }: { dict?: any }) {
       if (urlError === "OAuthAccountNotLinked") {
         setError("Another account with the same email already exists. Try logging in with your password first.");
       } else if (urlError === "Callback") {
-        setError("Sign in failed. The callback was interrupted.");
+        setError("Sign in failed. The callback was interrupted. This often happens if the authorized redirect URL is not set correctly in Google Console.");
+      } else if (urlError === "OAuthSignin" || urlError === "OAuthCallback") {
+        setError(`Google sign-in error: ${urlError}. Please check if your environment variables (CLIENT_ID/SECRET) are correct on Vercel.`);
       } else {
-        setError("An error occurred during sign in. Please try again.");
+        setError(`Sign in error: ${urlError}. Please check your credentials and try again.`);
       }
     }
 
