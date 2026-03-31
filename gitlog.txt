@@ -1,0 +1,71 @@
+commit 85dce7d3b52e23645d83e1ab5771546f42ca8018
+Author: Imran775-CT <Imran775-CT@gmail.com>
+Date:   Tue Mar 31 10:51:29 2026 +0600
+
+    feat: implement about, contact, donor, and request list pages with i18n support
+
+ src/app/about/page.tsx         | 24 +++++++++++++-----------
+ src/app/contact/page.tsx       | 21 +++++++++++++--------
+ src/app/donors/page.tsx        | 12 ++++++++----
+ src/app/requests-list/page.tsx | 35 ++++++++++++++++++++---------------
+ src/dictionaries/bn.json       | 42 ++++++++++++++++++++++++++++++++++++++++++
+ src/dictionaries/en.json       | 42 ++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 138 insertions(+), 38 deletions(-)
+
+commit 7826c64331d58c3ced1a55e69f0db3852010691a
+Author: Imran775-CT <Imran775-CT@gmail.com>
+Date:   Tue Mar 31 10:43:06 2026 +0600
+
+    feat: implement core UI components, authentication forms, and internationalization support
+
+ src/app/dashboard/requests/page.tsx   | 21 +++++---
+ src/app/login/page.tsx                |  8 ++-
+ src/app/page.tsx                      | 63 ++++++++++++-----------
+ src/app/register/page.tsx             |  9 +++-
+ src/components/DashboardShell.tsx     | 20 +++++---
+ src/components/Footer.tsx             | 24 +++++----
+ src/components/Hero.tsx               | 61 +++++++++++-----------
+ src/components/LanguageSwitcher.tsx   | 31 +++++++++++
+ src/components/MobileMenu.tsx         | 22 +++++---
+ src/components/Navbar.tsx             | 21 +++++---
+ src/components/forms/LoginForm.tsx    | 12 ++---
+ src/components/forms/RegisterForm.tsx | 14 ++---
+ src/dictionaries/bn.json              | 96 +++++++++++++++++++++++++++++++++++
+ src/dictionaries/en.json              | 96 +++++++++++++++++++++++++++++++++++
+ src/lib/dictionary.ts                 | 15 ++++++
+ src/middleware.ts                     | 21 +++++---
+ 16 files changed, 413 insertions(+), 121 deletions(-)
+
+commit d1a86f384e0269961d9d82eaf97dbe06a2f9d9f5
+Author: Imran775-CT <Imran775-CT@gmail.com>
+Date:   Tue Mar 31 10:19:58 2026 +0600
+
+    feat: implement dashboard shell, navigation components, and requests page layout
+
+ src/app/dashboard/requests/page.tsx |  2 +-
+ src/components/DashboardShell.tsx   |  4 +--
+ src/components/Footer.tsx           |  2 +-
+ src/components/MobileMenu.tsx       | 65 +++++++++++++++++++++++++++++++++++++
+ src/components/Navbar.tsx           |  8 +++--
+ 5 files changed, 75 insertions(+), 6 deletions(-)
+
+commit 19ef3e3c955febe99964d27ba647b07f7bd2b527
+Author: Imran775-CT <Imran775-CT@gmail.com>
+Date:   Tue Mar 31 10:01:25 2026 +0600
+
+    feat: implement user authentication actions and forgot password form functionality
+
+ prisma_error.txt                            |   4 +
+ src/app/actions/auth.ts                     |   4 +-
+ src/components/forms/ForgotPasswordForm.tsx |   2 +-
+ tsc-errors.txt                              | 135 ++++++++++++++++++++++++++++
+ 4 files changed, 143 insertions(+), 2 deletions(-)
+
+commit 8f97fa9ad37046e2861fd4dc2e06aae60ada44d9
+Author: Imran775-CT <Imran775-CT@gmail.com>
+Date:   Wed Mar 18 12:18:54 2026 +0600
+
+    next.config.mjs file changed
+
+ next.config.mjs | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
