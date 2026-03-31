@@ -92,5 +92,47 @@
     "of": "of",
     "next": "Next",
     "noRequests": "No requests yet."
+  },
+  "aboutPage": {
+    "eyebrow": "Our mission",
+    "title": "Building a safer, faster blood donation network.",
+    "subtitle": "BloodBond bridges donors, hospitals, and recipients with verified data and real-time coordination.",
+    "whyTitle": "Why we exist",
+    "whyDesc": "Emergency blood requests often rely on fragmented phone calls and personal networks. BloodBond digitizes the flow so every request is logged, tracked, and matched with verified donors.",
+    "howTitle": "How we protect donors",
+    "howDesc": "Donor profiles are approved by administrators, availability is managed by the donor, and each request has a clear audit trail."
+  },
+  "donorsPage": {
+    "eyebrow": "Find donors",
+    "title": "Search verified donors by blood group and area.",
+    "subtitle": "Only approved donors appear in this list."
+  },
+  "requestsListPage": {
+    "eyebrow": "Blood Requests",
+    "title": "All Blood Requests",
+    "subtitle": "Browse all blood requests submitted by users.",
+    "noRequestsTitle": "No blood requests found",
+    "noRequestsDesc": "No one has requested blood yet.",
+    "unitsNeeded": "units needed",
+    "unitNeeded": "unit needed",
+    "neededBy": "Needed by:",
+    "location": "Location:",
+    "note": "Note:",
+    "requestedBy": "Requested by:",
+    "unknown": "Unknown",
+    "preferredDonor": "Preferred donor:",
+    "prev": "Previous",
+    "page": "Page",
+    "of": "of",
+    "next": "Next"
+  },
+  "contactPage": {
+    "eyebrow": "Contact",
+    "title": "Reach our response team anytime.",
+    "subtitle": "We support hospitals, NGOs, and emergency coordinators 24/7.",
+    "hotline": "Hotline",
+    "phone": "+88 01320783413",
+    "email": "support@bloodbond.org",
+    "address": "Dhaka, Bangladesh"
   }
 }

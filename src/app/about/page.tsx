@@ -1,27 +1,29 @@
 import SectionHeading from "@/components/SectionHeading";
+import { cookies } from "next/headers";
+import { getDictionary } from "@/lib/dictionary";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const locale = cookies().get("NEXT_LOCALE")?.value || "en";
+  const dict = await getDictionary(locale);
+
   return (
     <section className="container-pad py-16">
       <SectionHeading
-        eyebrow="Our mission"
-        title="Building a safer, faster blood donation network."
-        subtitle="BloodBond bridges donors, hospitals, and recipients with verified data and real-time coordination."
+        eyebrow={dict.aboutPage.eyebrow}
+        title={dict.aboutPage.title}
+        subtitle={dict.aboutPage.subtitle}
       />
       <div className="grid gap-6 md:grid-cols-2">
         <div className="card">
-          <h3 className="text-2xl font-semibold">Why we exist</h3>
+          <h3 className="text-2xl font-semibold">{dict.aboutPage.whyTitle}</h3>
           <p className="mt-3 text-sm text-ink/70">
-            Emergency blood requests often rely on fragmented phone calls and
-            personal networks. BloodBond digitizes the flow so every request is
-            logged, tracked, and matched with verified donors.
+            {dict.aboutPage.whyDesc}
           </p>
         </div>
         <div className="card">
-          <h3 className="text-2xl font-semibold">How we protect donors</h3>
+          <h3 className="text-2xl font-semibold">{dict.aboutPage.howTitle}</h3>
           <p className="mt-3 text-sm text-ink/70">
-            Donor profiles are approved by administrators, availability is
-            managed by the donor, and each request has a clear audit trail.
+            {dict.aboutPage.howDesc}
           </p>
         </div>
       </div>
