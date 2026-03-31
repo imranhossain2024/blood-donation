@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import AuthMenu from "@/components/AuthMenu";
-
+import MobileMenu from "@/components/MobileMenu";
 export default async function Navbar() {
   const session = await getServerSession(authOptions);
 
@@ -36,7 +36,7 @@ export default async function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden items-center gap-3 md:flex">
           {session?.user ? (
             <AuthMenu name={session.user.name} role={session.user.role} />
           ) : (
@@ -50,6 +50,10 @@ export default async function Navbar() {
             </div>
           )}
         </div>
+        <MobileMenu 
+          isLoggedIn={!!session?.user} 
+          sessionName={session?.user?.name} 
+        />
       </div>
     </header>
   );

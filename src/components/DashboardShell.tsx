@@ -68,7 +68,7 @@ export default function DashboardShell({
           ) : null}
         </div>
         <nav
-          className="space-y-1.5"
+          className="flex flex-row space-x-2 overflow-x-auto pb-2 scrollbar-hide md:flex-col md:space-x-0 md:space-y-1.5 md:pb-0"
           aria-label="Dashboard navigation"
         >
           {links.map((link) => {
@@ -82,7 +82,7 @@ export default function DashboardShell({
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                className={`flex flex-shrink-0 items-center gap-3 rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
                   isActive
                     ? "border-brand-600 bg-brand-600 text-white shadow-md"
                     : "border-transparent bg-white/40 text-ink/70 hover:border-brand-100 hover:bg-white hover:text-brand-700 hover:shadow-sm"

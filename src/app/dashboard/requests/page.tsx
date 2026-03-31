@@ -40,7 +40,7 @@ export default async function RequestsPage({ searchParams }: { searchParams?: Re
                     <div className="text-xs uppercase tracking-[0.3em] text-ink/60">
                       {new Date(request.createdAt).toLocaleDateString()}
                     </div>
-                    <h3 className="mt-2 text-xl font-semibold">
+                    <h3 className="mt-2 text-lg md:text-xl font-semibold">
                       {bloodGroupLabels[request.bloodGroup]} - {request.units} units
                     </h3>
                     <p className="mt-1 text-sm text-ink/70">{request.location}</p>
