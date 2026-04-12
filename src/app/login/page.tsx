@@ -1,6 +1,7 @@
 import LoginForm from "@/components/forms/LoginForm";
 import { cookies } from "next/headers";
 import { getDictionary } from "@/lib/dictionary";
+import { Suspense } from "react";
 
 export default async function LoginPage({
   searchParams,
@@ -15,10 +16,12 @@ export default async function LoginPage({
     <section className="container-pad flex min-h-[70vh] flex-col items-center justify-center gap-4 py-16">
       {registered ? (
         <div className="rounded-2xl border border-brand-100 bg-white/80 px-6 py-3 text-sm text-ink/70">
-          Registration ??? ?????! ??? ???? ?????
+          Registration সম্পন্ন হয়েছে! এখন লগইন করুন।
         </div>
       ) : null}
-      <LoginForm dict={dict} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LoginForm dict={dict} />
+      </Suspense>
     </section>
   );
 }
