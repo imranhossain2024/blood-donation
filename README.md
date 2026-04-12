@@ -136,4 +136,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by [Imran Hossain]
