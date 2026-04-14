@@ -81,7 +81,7 @@ export default function ContactForm() {
         />
         <input
           type="text"
-          name="subject"
+          name="title"
           placeholder="Subject"
           required
           className="w-full rounded-2xl border border-brand-100 bg-white px-4 py-3 text-sm"
