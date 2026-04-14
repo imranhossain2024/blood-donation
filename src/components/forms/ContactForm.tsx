@@ -38,7 +38,7 @@ export default function ContactForm() {
       }
     } catch (err) {
       console.error("EmailJS Error:", err);
-      setError("Failed to send message. Please try again later.");
+      setError("Failed to send message. Please try again later..");
     } finally {
       setLoading(false);
     }
